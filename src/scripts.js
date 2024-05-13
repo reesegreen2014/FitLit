@@ -1,7 +1,15 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
+const {users} = require('../data/users.js')
 
-
+function getUserData(users, id) {
+    const computerUser = users.find(user => {
+        if(users.id === id) {
+            return user
+        }
+    })
+    return computerUser
+}
+//Do we want .find for User ID function? 
+// USer ID < 1 a&& < 50
 // An example of how you tell webpack to use a CSS file
 import './css/styles.css';
 
@@ -17,3 +25,5 @@ import { exampleFunction1, exampleFunction2 } from './domUpdates';
 
 exampleFunction1('Travis');
 exampleFunction2('Travis')
+
+module.exports = {getUserData}
