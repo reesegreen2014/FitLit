@@ -1,4 +1,4 @@
-const { users } = require('../src/data/users.js');
+// const { users } = require('../src/data/users.js');
 
 function getUserData(users, id) {
     const computerUser = users.find((user) => user.id === id)
