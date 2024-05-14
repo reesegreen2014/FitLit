@@ -3,15 +3,15 @@ const { users } = require('../src/data/users.js');
 function getUserData(users, id) {
     const computerUser = users.find((user) => user.id === id)
     if (!computerUser) {
-        return 'Invalid ID'
+         return 'Invalid ID'
     } 
-    if(!typeof computerUser.id === 'number') {
-        return 'Invalid ID, please enter a number.'
+    if(typeof id !== 'number') {
+        return 'Invalid ID'
     }
-    return computerUser
+    return computerUser;
 }
 
-  
+
 //Do we want .find for User ID function? 
 // USer ID < 1 a&& < 50
 // An example of how you tell webpack to use a CSS file

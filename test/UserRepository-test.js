@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { assert, expect } from 'chai';
 const { getUserData } = require('../src/scripts.js');
 
 describe('User Repository', () => {
@@ -62,6 +62,10 @@ describe('user ID function', function() {
     userArray = [user1, user2, user3]
   })
 
+  it('should be a function', () => {
+    assert.isFunction(getUserData);
+  })
+
   it('should deliver correct user information', () => {
     const user1Data = getUserData(userArray, 1)
     expect(user1Data).to.deep.equal(user1)
@@ -77,5 +81,33 @@ describe('user ID function', function() {
     expect(generic).to.equal('Invalid ID')
   });
 
+  it('should handle non-existent ID', () => {
+    const nonExistentId = 100;
+    const result = getUserData(userArray, nonExistentId);
+    expect(result).to.equal('Invalid ID')
+  })
+
+  it('should handle negative IDs', () => {
+    const negativeId = -1;
+    const result = getUserData(userArray, negativeId);
+    expect(result).to.equal('Invalid ID')
+  })
+
+  it('should handle special characters in IDs', () => {
+    const specialCharId = '!@#$%'; 
+    const result = getUserData(userArray, specialCharId);
+    expect(result).to.equal('Invalid ID');
+  })
+
+  it('should test if the id is a number', () => {
+    const id = 10;
+    expect(id).to.be.a('number')
+  })
+
+  it('should return an error if the id is not a number', () => {
+    const notANumber = 'abc'
+    const result = getUserData(userArray, notANumber)
+    expect(result).to.include('Invalid ID')
+  })
 
 })
