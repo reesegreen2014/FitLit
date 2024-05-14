@@ -14,10 +14,6 @@ function getUserData(users, id) {
   
 //Do we want .find for User ID function? 
 // USer ID < 1 a&& < 50
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-
 // An example of how you tell webpack to use a CSS file
 import './css/styles.css';
 
