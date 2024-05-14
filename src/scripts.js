@@ -11,6 +11,10 @@ function getUserData(users, id) {
     return computerUser;
 }
 
+function calculateAverageStepGoal(){
+    
+}
+
 
 //Do we want .find for User ID function? 
 // USer ID < 1 a&& < 50
@@ -30,4 +34,4 @@ import { exampleFunction1, exampleFunction2 } from './domUpdates';
 exampleFunction1('Travis');
 exampleFunction2('Travis')
 
-export { getUserData };
+export { getUserData, calculateAverageStepGoal };
