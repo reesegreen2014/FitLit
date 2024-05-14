@@ -108,7 +108,7 @@ describe('user ID function', function() {
 
 
 describe('getAverageStepGoal', () => {
-  let user1, user2, user3, userArray
+  let user1, user2, user3, user4, user5, userArray
   beforeEach(function(){
     user1 =  {
       "id": 1,
@@ -152,11 +152,70 @@ describe('getAverageStepGoal', () => {
         12
       ]
     }
-    userArray = [user1, user2, user3]
+    user4 = {
+      "id": 12,
+      "name": "Jacinthe Prosacco",
+      "address": "9149 Kamille Brook, Josiannehaven TN 49127-4921",
+      "email": "Daniela_Mante86@yahoo.com",
+      "strideLength": 3.5,
+      "dailyStepGoal": 3000,
+      "friends": [
+        5,
+        17
+      ]
+    }
+    user5 = {
+      "id": 17,
+      "name": "Amber Thiel",
+      "address": "1978 Johnpaul Square, West Amina WA 90912-4707",
+      "email": "Randi.Fay@yahoo.com",
+      "strideLength": 4.5,
+      "dailyStepGoal": 4000,
+      "friends": [
+        19,
+        27,
+        9,
+        26,
+        24
+      ]
+    }
+    userArray = [user1, user2, user3, user4, user5]
      })
 
      it('should be a function', () => {
       assert.isFunction(calculateAverageStepGoal)
      })
+
+//empty array
+//one user
+//all users with same step goal
+//all users with different step goals
+//users with extreme step goals
+//non-integer step goals
+//users with negative step goals
+
+    it('should return average steps', () => {
+      const invocation = calculateAverageStepGoal(userArray)
+      expect(invocation).to.equal(6000)
+    })
+
+     it.skip('should handle an empty array of users', () => {
+     })
+
+    it.skip('should handle all users with same step goal', () => {
+    })
+
+    it.skip('should handle all users with different step goals', () => {
+    })
+
+    it.skip('should handle users with extreme step goals', () => {
+    })
+
+    it.skip('should handle non-integer step goals', () => {
+    })
+
+    it.skip('should handle negative step goals', () => {
+    })
+
   })
 
