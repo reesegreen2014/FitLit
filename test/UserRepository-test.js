@@ -1,5 +1,5 @@
 import { assert, expect } from 'chai';
-const { getUserData, calculateAverageStepGoal } = require('../src/scripts.js');
+const { getUserData, calculateAverageStepGoal } = require('../src/userData.js');
 
 describe('User Repository', () => {
   it('should run tests', function () {
@@ -195,11 +195,14 @@ describe('getAverageStepGoal', () => {
 //users with negative step goals
 
     it('should return average steps', () => {
-      const invocation = calculateAverageStepGoal(userArray)
-      expect(invocation).to.equal(6000)
+      const average = calculateAverageStepGoal(userArray)
+      expect(average).to.equal(6000)
     })
 
-    it.skip('should handle an empty array of users', () => {
+    it('should handle an empty array of users', () => {
+        userArray = []
+        const average = calculateAverageStepGoal(userArray)
+        expect(average).to.equal('No User Information Provided')
      })
 
     it.skip('should handle all users with same step goal', () => {
