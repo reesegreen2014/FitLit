@@ -199,7 +199,7 @@ describe('getAverageStepGoal', () => {
       expect(invocation).to.equal(6000)
     })
 
-     it.skip('should handle an empty array of users', () => {
+    it.skip('should handle an empty array of users', () => {
      })
 
     it.skip('should handle all users with same step goal', () => {
