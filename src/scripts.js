@@ -1,13 +1,17 @@
-const {users} = require('../data/users.js')
+const { users } = require('../src/data/users.js');
 
 function getUserData(users, id) {
-    const computerUser = users.find(user => {
-        if(users.id === id) {
-            return user
-        }
-    })
+    const computerUser = users.find((user) => user.id === id)
+    if (!computerUser) {
+        return 'Invalid ID'
+    } 
+    if(!typeof computerUser.id === 'number') {
+        return 'Invalid ID, please enter a number.'
+    }
     return computerUser
 }
+
+  
 //Do we want .find for User ID function? 
 // USer ID < 1 a&& < 50
 // An example of how you tell webpack to use a CSS file
@@ -26,4 +30,4 @@ import { exampleFunction1, exampleFunction2 } from './domUpdates';
 exampleFunction1('Travis');
 exampleFunction2('Travis')
 
-module.exports = {getUserData}
+export { getUserData };

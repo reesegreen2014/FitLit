@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-const {getUserData} = require('./src/scripts.js')
+const { getUserData } = require('../src/scripts.js');
 
 describe('User Repository', () => {
   it('should run tests', function () {
@@ -69,7 +69,13 @@ describe('user ID function', function() {
     expect(user2Data).to.deep.equal(user2)
     const user3Data = getUserData(userArray, 50)
     expect(user3Data).to.deep.equal(user3)
-  })
+  });
+
+  it('should handle invalid IDs', () => {
+    const invalidId = 'invalid_id'
+    const generic = getUserData(userArray, invalidId)
+    expect(generic).to.equal('Invalid ID')
+  });
 
 
 })
