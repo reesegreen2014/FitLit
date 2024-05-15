@@ -8,10 +8,10 @@ describe('User Repository', () => {
 });
 
 
-describe('user ID function', function() {
+describe('user ID function', function () {
   let user1, user2, user3, userArray
-  beforeEach(function() {
-    user1 =  {
+  beforeEach(function () {
+    user1 = {
       "id": 1,
       "name": "Trystan Gorczany",
       "address": "9484 Lucas Flat, West Kittymouth WA 67504",
@@ -88,7 +88,7 @@ describe('user ID function', function() {
   })
 
   it('should handle special characters in IDs', () => {
-    const specialCharId = '!@#$%'; 
+    const specialCharId = '!@#$%';
     const result = getUserData(userArray, specialCharId);
     expect(result).to.equal('Invalid ID');
   })
@@ -109,8 +109,8 @@ describe('user ID function', function() {
 
 describe('getAverageStepGoal', () => {
   let user1, user2, user3, user4, user5, userArray
-  beforeEach(function(){
-    user1 =  {
+  beforeEach(function () {
+    user1 = {
       "id": 1,
       "name": "Trystan Gorczany",
       "address": "9484 Lucas Flat, West Kittymouth WA 67504",
@@ -180,45 +180,420 @@ describe('getAverageStepGoal', () => {
       ]
     }
     userArray = [user1, user2, user3, user4, user5]
-     })
-
-     it('should be a function', () => {
-      assert.isFunction(calculateAverageStepGoal)
-     })
-
-//empty array
-//one user
-//all users with same step goal
-//all users with different step goals
-//users with extreme step goals
-//non-integer step goals
-//users with negative step goals
-
-    it('should return average steps', () => {
-      const average = calculateAverageStepGoal(userArray)
-      expect(average).to.equal(6000)
-    })
-
-    it('should handle an empty array of users', () => {
-        userArray = []
-        const average = calculateAverageStepGoal(userArray)
-        expect(average).to.equal('No User Information Provided')
-     })
-
-    it.skip('should handle all users with same step goal', () => {
-    })
-
-    it.skip('should handle all users with different step goals', () => {
-    })
-
-    it.skip('should handle users with extreme step goals', () => {
-    })
-
-    it.skip('should handle non-integer step goals', () => {
-    })
-
-    it.skip('should handle negative step goals', () => {
-    })
-
   })
+
+  it('should be a function', () => {
+    assert.isFunction(calculateAverageStepGoal)
+  })
+
+  //empty array
+  //one user
+  //all users with same step goal
+  //all users with different step goals
+  //users with extreme step goals
+  //non-integer step goals
+  //users with negative step goals
+
+  it('should return average steps', () => {
+    const average = calculateAverageStepGoal(userArray)
+    expect(average).to.equal(6000)
+  })
+
+  it('should handle an empty array of users', () => {
+    userArray = []
+    const average = calculateAverageStepGoal(userArray)
+    expect(average).to.equal('No User Information Provided')
+  })
+
+  it('should handle all users with same step goal', () => {
+    user1 = {
+      "id": 1,
+      "name": "Trystan Gorczany",
+      "address": "9484 Lucas Flat, West Kittymouth WA 67504",
+      "email": "Taurean_Pollich31@gmail.com",
+      "strideLength": 4,
+      "dailyStepGoal": 5000,
+      "friends": [
+        5,
+        43,
+        46,
+        11
+      ]
+    }
+    user2 = {
+      "id": 25,
+      "name": "Mellie Pacocha",
+      "address": "5696 Eliseo Tunnel, North Earnestine KY 04912-9498",
+      "email": "Jermey4@gmail.com",
+      "strideLength": 4,
+      "dailyStepGoal": 5000,
+      "friends": [
+        21,
+        46,
+        47,
+        19,
+        41
+      ]
+    }
+    user3 = {
+      "id": 50,
+      "name": "Karianne Berge",
+      "address": "40555 White Knoll, New Christophechester MA 18097",
+      "email": "Amy19@yahoo.com",
+      "strideLength": 4.5,
+      "dailyStepGoal": 5000,
+      "friends": [
+        46,
+        48,
+        12
+      ]
+    }
+    user4 = {
+      "id": 12,
+      "name": "Jacinthe Prosacco",
+      "address": "9149 Kamille Brook, Josiannehaven TN 49127-4921",
+      "email": "Daniela_Mante86@yahoo.com",
+      "strideLength": 3.5,
+      "dailyStepGoal": 5000,
+      "friends": [
+        5,
+        17
+      ]
+    }
+    user5 = {
+      "id": 17,
+      "name": "Amber Thiel",
+      "address": "1978 Johnpaul Square, West Amina WA 90912-4707",
+      "email": "Randi.Fay@yahoo.com",
+      "strideLength": 4.5,
+      "dailyStepGoal": 5000,
+      "friends": [
+        19,
+        27,
+        9,
+        26,
+        24
+      ]
+    }
+    userArray = [user1, user2, user3, user4, user5]
+    const average = calculateAverageStepGoal(userArray)
+    expect(average).to.equal(5000)
+  })
+
+//   it('should handle all users with different step goals', () => {
+//     user1.dailyStepGoal = 3000;
+//     user2.dailyStepGoal = 4000;
+//     user3.dailyStepGoal = 5000;
+//     user4.dailyStepGoal = 6000;
+//     user5.dailyStepGoal = 7000;
+
+//     userArray = [user1, user2, user3, user4, user5];
+
+//     const average = calculateAverageStepGoal(userArray);
+//     expect(average).to.equal(5000);  // (3000 + 4000 + 5000 + 6000 + 7000) / 5 = 5000
+// });
+
+  it('should handle all users with different step goals', () => {
+    user1 = {
+      "id": 1,
+      "name": "Trystan Gorczany",
+      "address": "9484 Lucas Flat, West Kittymouth WA 67504",
+      "email": "Taurean_Pollich31@gmail.com",
+      "strideLength": 4,
+      "dailyStepGoal": 3000,
+      "friends": [
+        5,
+        43,
+        46,
+        11
+      ]
+    }
+    user2 = {
+      "id": 25,
+      "name": "Mellie Pacocha",
+      "address": "5696 Eliseo Tunnel, North Earnestine KY 04912-9498",
+      "email": "Jermey4@gmail.com",
+      "strideLength": 4,
+      "dailyStepGoal": 4000,
+      "friends": [
+        21,
+        46,
+        47,
+        19,
+        41
+      ]
+    }
+    user3 = {
+      "id": 50,
+      "name": "Karianne Berge",
+      "address": "40555 White Knoll, New Christophechester MA 18097",
+      "email": "Amy19@yahoo.com",
+      "strideLength": 4.5,
+      "dailyStepGoal": 5000,
+      "friends": [
+        46,
+        48,
+        12
+      ]
+    }
+    user4 = {
+      "id": 12,
+      "name": "Jacinthe Prosacco",
+      "address": "9149 Kamille Brook, Josiannehaven TN 49127-4921",
+      "email": "Daniela_Mante86@yahoo.com",
+      "strideLength": 3.5,
+      "dailyStepGoal": 6000,
+      "friends": [
+        5,
+        17
+      ]
+    }
+    user5 = {
+      "id": 17,
+      "name": "Amber Thiel",
+      "address": "1978 Johnpaul Square, West Amina WA 90912-4707",
+      "email": "Randi.Fay@yahoo.com",
+      "strideLength": 4.5,
+      "dailyStepGoal": 7000,
+      "friends": [
+        19,
+        27,
+        9,
+        26,
+        24
+      ]
+    }
+    userArray = [user1, user2, user3, user4, user5];
+    const average = calculateAverageStepGoal(userArray);
+    expect(average).to.equal(5000);
+  })
+
+  it('should handle users with extreme step goals', () => {
+    user1 = {
+      "id": 1,
+      "name": "Trystan Gorczany",
+      "address": "9484 Lucas Flat, West Kittymouth WA 67504",
+      "email": "Taurean_Pollich31@gmail.com",
+      "strideLength": 4,
+      "dailyStepGoal": 100,
+      "friends": [
+        5,
+        43,
+        46,
+        11
+      ]
+    }
+    user2 = {
+      "id": 25,
+      "name": "Mellie Pacocha",
+      "address": "5696 Eliseo Tunnel, North Earnestine KY 04912-9498",
+      "email": "Jermey4@gmail.com",
+      "strideLength": 4,
+      "dailyStepGoal": 50000,
+      "friends": [
+        21,
+        46,
+        47,
+        19,
+        41
+      ]
+    }
+    user3 = {
+      "id": 50,
+      "name": "Karianne Berge",
+      "address": "40555 White Knoll, New Christophechester MA 18097",
+      "email": "Amy19@yahoo.com",
+      "strideLength": 4.5,
+      "dailyStepGoal": 10000,
+      "friends": [
+        46,
+        48,
+        12
+      ]
+    }
+    user4 = {
+      "id": 12,
+      "name": "Jacinthe Prosacco",
+      "address": "9149 Kamille Brook, Josiannehaven TN 49127-4921",
+      "email": "Daniela_Mante86@yahoo.com",
+      "strideLength": 3.5,
+      "dailyStepGoal": 500,
+      "friends": [
+        5,
+        17
+      ]
+    }
+    user5 = {
+      "id": 17,
+      "name": "Amber Thiel",
+      "address": "1978 Johnpaul Square, West Amina WA 90912-4707",
+      "email": "Randi.Fay@yahoo.com",
+      "strideLength": 4.5,
+      "dailyStepGoal": 100000,
+      "friends": [
+        19,
+        27,
+        9,
+        26,
+        24
+      ]
+    }
+    userArray = [user1, user2, user3, user4, user5];
+    const average = calculateAverageStepGoal(userArray);
+    expect(average).to.equal((100 + 50000 + 10000 + 500 + 100000) / 5);
+  })
+
+  it('should handle non-integer step goals', () => {
+    user1 = {
+      "id": 1,
+      "name": "Trystan Gorczany",
+      "address": "9484 Lucas Flat, West Kittymouth WA 67504",
+      "email": "Taurean_Pollich31@gmail.com",
+      "strideLength": 4,
+      "dailyStepGoal": 2500.75,
+      "friends": [
+        5,
+        43,
+        46,
+        11
+      ]
+    }
+    user2 = {
+      "id": 25,
+      "name": "Mellie Pacocha",
+      "address": "5696 Eliseo Tunnel, North Earnestine KY 04912-9498",
+      "email": "Jermey4@gmail.com",
+      "strideLength": 4,
+      "dailyStepGoal": 4000.25,
+      "friends": [
+        21,
+        46,
+        47,
+        19,
+        41
+      ]
+    }
+    user3 = {
+      "id": 50,
+      "name": "Karianne Berge",
+      "address": "40555 White Knoll, New Christophechester MA 18097",
+      "email": "Amy19@yahoo.com",
+      "strideLength": 4.5,
+      "dailyStepGoal": 5000,
+      "friends": [
+        46,
+        48,
+        12
+      ]
+    }
+    user4 = {
+      "id": 12,
+      "name": "Jacinthe Prosacco",
+      "address": "9149 Kamille Brook, Josiannehaven TN 49127-4921",
+      "email": "Daniela_Mante86@yahoo.com",
+      "strideLength": 3.5,
+      "dailyStepGoal": 3000.50,
+      "friends": [
+        5,
+        17
+      ]
+    }
+    user5 = {
+      "id": 17,
+      "name": "Amber Thiel",
+      "address": "1978 Johnpaul Square, West Amina WA 90912-4707",
+      "email": "Randi.Fay@yahoo.com",
+      "strideLength": 4.5,
+      "dailyStepGoal": 8000,
+      "friends": [
+        19,
+        27,
+        9,
+        26,
+        24
+      ]
+    }
+    userArray = [user1, user2, user3, user4, user5];
+
+    const average = calculateAverageStepGoal(userArray);
+    expect(average).to.equal((2500.75 + 4000.25 + 5000 + 3000.50 + 8000) / 5);
+  })
+
+  it('should handle negative step goals', () => {
+    user1 = {
+      "id": 1,
+      "name": "Trystan Gorczany",
+      "address": "9484 Lucas Flat, West Kittymouth WA 67504",
+      "email": "Taurean_Pollich31@gmail.com",
+      "strideLength": 4,
+      "dailyStepGoal": -1000,
+      "friends": [
+        5,
+        43,
+        46,
+        11
+      ]
+    }
+    user2 = {
+      "id": 25,
+      "name": "Mellie Pacocha",
+      "address": "5696 Eliseo Tunnel, North Earnestine KY 04912-9498",
+      "email": "Jermey4@gmail.com",
+      "strideLength": 4,
+      "dailyStepGoal": 4000.25,
+      "friends": [
+        21,
+        46,
+        47,
+        19,
+        41
+      ]
+    }
+    user3 = {
+      "id": 50,
+      "name": "Karianne Berge",
+      "address": "40555 White Knoll, New Christophechester MA 18097",
+      "email": "Amy19@yahoo.com",
+      "strideLength": 4.5,
+      "dailyStepGoal": 5000,
+      "friends": [
+        46,
+        48,
+        12
+      ]
+    }
+    user4 = {
+      "id": 12,
+      "name": "Jacinthe Prosacco",
+      "address": "9149 Kamille Brook, Josiannehaven TN 49127-4921",
+      "email": "Daniela_Mante86@yahoo.com",
+      "strideLength": 3.5,
+      "dailyStepGoal": 3000.50,
+      "friends": [
+        5,
+        17
+      ]
+    }
+    user5 = {
+      "id": 17,
+      "name": "Amber Thiel",
+      "address": "1978 Johnpaul Square, West Amina WA 90912-4707",
+      "email": "Randi.Fay@yahoo.com",
+      "strideLength": 4.5,
+      "dailyStepGoal": 8000,
+      "friends": [
+        19,
+        27,
+        9,
+        26,
+        24
+      ]
+    }
+    userArray = [user1, user2, user3, user4, user5];
+
+    const average = calculateAverageStepGoal(userArray);
+    expect(average).to.equal('Invalid Step Goal');
+  })
+
+});
 
