@@ -13,7 +13,11 @@ function getRandomIndex(array) {
 function displayRandomUser() {
 let randomIndex = getRandomIndex(users.users)
 let selectedIndex = getUserData(users.users, randomIndex)
- userInfo.innerText = `Your data as of yet: ID: ${selectedIndex.id}, Stride Length ${selectedIndex.strideLength}, Daily Step Goal ${selectedIndex.dailyStepGoal}, Friends: ${selectedIndex.friends} `
+ userInfo.innerHTML = `Your information: 
+<p>ID: ${selectedIndex.id}, </p>
+<p> Stride Length ${selectedIndex.strideLength}, </p>
+<p> Daily Step Goal ${selectedIndex.dailyStepGoal}, </p>
+<p> Friends: ${selectedIndex.friends}</p>`
  userName.innerText = `${selectedIndex.name}`
  displayStepGoal()
 }
