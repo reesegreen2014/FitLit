@@ -1,5 +1,7 @@
+
 import { assert, expect } from 'chai';
 const { getUserData, calculateAverageStepGoal } = require('../src/userData.js');
+
 
 describe('User Repository', () => {
   it('should run tests', function () {
@@ -74,6 +76,7 @@ describe('user ID function', function () {
     const generic = getUserData(userArray, invalidId)
     expect(generic).to.equal('Invalid ID')
   });
+
 
   it('should handle non-existent ID', () => {
     const nonExistentId = 100;
@@ -367,6 +370,7 @@ describe('getAverageStepGoal', () => {
     const average = calculateAverageStepGoal(userArray);
     expect(average).to.equal(5000);
   })
+
 
   it('should handle users with extreme step goals', () => {
     user1 = {
