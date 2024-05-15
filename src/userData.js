@@ -9,17 +9,6 @@ function getUserData(users, id) {
     return computerUser;
 }
 
-// function calculateAverageStepGoal(users){
-//     const totalSteps = users.reduce((acc, user) => {
-//         acc += user.dailyStepGoal;
-//         return acc;
-//     }, 0)
-//     if (!totalSteps) {
-//         return 'No User Information Provided'
-//     }
-//     return totalSteps/users.length;
-// }
-
 function calculateAverageStepGoal(users) {
     let invalidFound = false;
     const totalSteps = users.reduce((acc, user) => {
