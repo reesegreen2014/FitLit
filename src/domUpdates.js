@@ -1,16 +1,22 @@
-//NOTE: Your DOM manipulation will occur in this file
+const {getUserData, calculateAverageStepGoal} = require('../src/images/userData.js')
+import userData from './data/users';
 
-//Here are 2 example functions just to demonstrate one way you can export/import between the two js files. You'll want to delete these once you get your own code going.
-const exampleFunction1 = (person) => {
-  console.log(`oh hi there ${person}`)
+const userInfo = document.querySelector('#userInfo')
+
+
+function getRandomIndex(array) {
+  return Math.floor(Math.random() * array.length);
 }
 
-const exampleFunction2 = (person) => {
-  console.log(`bye now ${person}`)
+function displayRandomUser() {
+let randomUser = getRandomIndex(userData)
+return userInfo.innerHTML = `${randomUser}`
 }
+
+userInfo.addEventListener('load', displayRandomUser)
+
 
 
 export {
-  exampleFunction1,
-  exampleFunction2,
+  getRandomIndex, displayRandomUser
 }
