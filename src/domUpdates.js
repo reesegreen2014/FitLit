@@ -12,24 +12,23 @@ function getRandomIndex(array) {
 
 function displayRandomUser() {
 let randomIndex = getRandomIndex(users.users)
-let selectedIndex = getUserData(users.users, randomIndex)
+let s{id, strideLength, dailyStepGoal, friends, name} = getUserData(users.users, randomIndex)
  userInfo.innerHTML = `Your information: 
-<p>ID: ${selectedIndex.id}, </p>
-<p> Stride Length ${selectedIndex.strideLength}, </p>
-<p> Daily Step Goal ${selectedIndex.dailyStepGoal}, </p>
-<p> Friends: ${selectedIndex.friends}</p>`
+<p>ID: ${id}, </p>
+<p> Stride Length ${strideLength}, </p>
+<p> Daily Step Goal ${dailyStepGoal}, </p>
+<p> Friends: ${friends}</p>`
  userName.innerText = `${selectedIndex.name}`
  displayStepGoal()
 }
 
-addEventListener('load', displayRandomUser)
-
 displayRandomUser()
 function displayStepGoal() {
-let stepGoalComparison = calculateAverageStepGoal(users.users)
-stepGoal.innerText = `Your step goal compared with all other users: ${stepGoalComparison}`
-
+  let stepGoalComparison = calculateAverageStepGoal(users.users)
+  stepGoal.innerText = `Your step goal compared with all other users: ${stepGoalComparison}`
+  
 }
+addEventListener('load', displayRandomUser)
 
 export {
   getRandomIndex, displayRandomUser
