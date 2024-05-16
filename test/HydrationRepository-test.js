@@ -90,80 +90,98 @@ describe('calculateAverageFluidOunces Function', function () {
     })
     it.skip('should return user1s average fluid ounces consumed per day for all time', () => {
         const expectedAverage = calculateAverageFluidOunces(user1);
-        const actualAverage = (28+35+95+74) / 4;
+        const actualAverage = (28 + 35 + 95 + 74) / 4;
         expect(actualAverage).to.equal(expectedAverage);
     })
 })
 
 describe('calculateDailyFluidOunces Function', function () {
-    user1 = [
-        {
-            "userID": 1,
-            "date": "2023/03/24",
-            "numOunces": 28
-        },
-        {
-            "userID": 1,
-            "date": "2023/03/24",
-            "numOunces": 35
-        },
-        {
-            "userID": 1,
-            "date": "2023/03/26",
-            "numOunces": 95
-        },
-        {
-            "userID": 1,
-            "date": "2023/03/27",
-            "numOunces": 74
-        },
-    ];
-    user2 = [
-        {
-            "userID": 2,
-            "date": "2023/04/24",
-            "numOunces": 40
-        },
-        {
-            "userID": 2,
-            "date": "2023/04/24",
-            "numOunces": 56
-        },
-        {
-            "userID": 2,
-            "date": "2023/04/24",
-            "numOunces": 95
-        },
-        {
-            "userID": 2,
-            "date": "2023/03/27",
-            "numOunces": 75
-        },
-    ];
+    let user1, user2, user3
+    this.beforeEach(function () {
+        user1 = [
+            {
+                "userID": 1,
+                "date": "2023/03/24",
+                "numOunces": 28
+            },
+            {
+                "userID": 1,
+                "date": "2023/03/24",
+                "numOunces": 35
+            },
+            {
+                "userID": 1,
+                "date": "2023/03/26",
+                "numOunces": 95
+            },
+            {
+                "userID": 1,
+                "date": "2023/03/27",
+                "numOunces": 74
+            },
+        ];
+        user2 = [
+            {
+                "userID": 2,
+                "date": "2023/04/24",
+                "numOunces": 40
+            },
+            {
+                "userID": 2,
+                "date": "2023/04/24",
+                "numOunces": 56
+            },
+            {
+                "userID": 2,
+                "date": "2023/04/24",
+                "numOunces": 95
+            },
+            {
+                "userID": 2,
+                "date": "2023/03/27",
+                "numOunces": 75
+            },
+        ];
+        user3 = [
+            {
+                "userID": 3,
+                "date": "2023/03/24",
+                "numOunces": 55
+            },
+            {
+                "userID": 3,
+                "date": "2023/03/24",
+                "numOunces": 20
+            },
+            {
+                "userID": 3,
+                "date": "2023/03/24",
+                "numOunces": 100
+            },
+            {
+                "userID": 3,
+                "date": "2023/03/24",
+                "numOunces": 75
+            },
+        ];
+        hydrationArray = [user1, user2, user3]
+    })
 
-    user3 = [
-        {
-            "userID": 3,
-            "date": "2023/03/24",
-            "numOunces": 55
-        },
-        {
-            "userID": 3,
-            "date": "2023/03/24",
-            "numOunces": 20
-        },
-        {
-            "userID": 3,
-            "date": "2023/03/24",
-            "numOunces": 100
-        },
-        {
-            "userID": 3,
-            "date": "2023/03/24",
-            "numOunces": 75
-        },
-    ];
-})
+    it('should return the correct fluid ounces consumed for a specific day', () => {
+        const user1DailyOunces = calculateDailyOunces(hydrationArray, 1)
+        expect(user1DailyOunces).to.deep.equal(63)
+    })
+
+    it('should handle invalid input for numOunces', () => {
+        const invalidOunces = 'invalid_ounces'
+        const result = calculateDailyOunces(hydrationArray, invalidOunces)
+        expect(result).to.equal('Invalid Ounces Input')
+    })
+
+    it('should handle a zero value for numOunces', () => {
+        const zeroOunces = 'zero_ounces'
+        const
+    })
 
 
 
