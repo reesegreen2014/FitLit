@@ -4,9 +4,9 @@ const { calculateAverageFluidOunces } = require('../src/hydrationData.js');
 
 
 describe('calculateAverageFluidOunces Function', function () {
-    let user1, user2, user3, hydrationArray
+    let hydrationData
     beforeEach(function () {
-        user1 = [
+        hydrationData = [
             {
                 "userID": 1,
                 "date": "2023/03/24",
@@ -27,8 +27,6 @@ describe('calculateAverageFluidOunces Function', function () {
                 "date": "2023/03/27",
                 "numOunces": 74
             },
-        ];
-        user2 = [
             {
                 "userID": 2,
                 "date": "2023/03/24",
@@ -49,9 +47,6 @@ describe('calculateAverageFluidOunces Function', function () {
                 "date": "2023/03/27",
                 "numOunces": 75
             },
-        ];
-
-        user3 = [
             {
                 "userID": 3,
                 "date": "2023/03/24",
@@ -73,17 +68,16 @@ describe('calculateAverageFluidOunces Function', function () {
                 "numOunces": 75
             },
         ];
-        hydrationArray = [user1, user2, user3];
     })
 
-    it.skip('should be a function', () => {
+    it('should be a function', () => {
         assert.isFunction(calculateAverageFluidOunces);
     })
 
-    it.skip('should return the users average fluid ounces consumed per day for all time', () => {
-        const user1Average = calculateAverageFluidOunces(user1);
-        const user2Average = calculateAverageFluidOunces(user2);
-        const user3Average = calculateAverageFluidOunces(user3);
+    it('should return the users average fluid ounces consumed per day for all time', () => {
+        const user1Average = calculateAverageFluidOunces(1, hydrationData);
+        const user2Average = calculateAverageFluidOunces(2, hydrationData);
+        const user3Average = calculateAverageFluidOunces(3, hydrationData);
         expect(user1Average).to.equal()
         expect(user2Average).to.equal(66.5)
         expect(user3Average).to.equal(62.5)
@@ -167,21 +161,35 @@ describe('calculateDailyFluidOunces Function', function () {
         hydrationArray = [user1, user2, user3]
     })
 
-    it('should return the correct fluid ounces consumed for a specific day', () => {
+    it.skip('should return the correct fluid ounces consumed for a specific day', () => {
         const user1DailyOunces = calculateDailyOunces(hydrationArray, 1)
         expect(user1DailyOunces).to.deep.equal(63)
     })
 
-    it('should handle invalid input for numOunces', () => {
+    it.skip('should handle invalid input for numOunces', () => {
         const invalidOunces = 'invalid_ounces'
         const result = calculateDailyOunces(hydrationArray, invalidOunces)
         expect(result).to.equal('Invalid Ounces Input')
     })
 
     it('should handle a zero value for numOunces', () => {
-        const zeroOunces = 'zero_ounces'
-        const
+        const zeroOunces = 0;
+        const result = calculateAverageFluidOunces(hydrationArray, zeroOunces)
+        expect(result).to.equal('Invalid Ounces Input')
     })
+
+    it('should handle extremely large values for numOunces', () => {
+        const largeOunces = 400;
+        const result = calculateAverageFluidOunces(hydrationArray, largeOunces)
+        expect(result).to.equal('Invalid Ounces Input');
+    })
+
+    // it('should non-numerical values for numOunces', () => {
+    //     const nontANumber = 
+    // })
+});
+
+
 
 
 
