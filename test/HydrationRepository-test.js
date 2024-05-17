@@ -71,7 +71,6 @@ describe('calculateAverageFluidOunces Function', function () {
     })
 
     it('should be a function', () => {
-    it('should be a function', () => {
         assert.isFunction(calculateAverageFluidOunces);
     })
 
@@ -98,7 +97,7 @@ describe('calculateAverageFluidOunces Function', function () {
         const nonExistentUserAverage = calculateAverageFluidOunces(4, {hydrationData});
         expect(nonExistentUserAverage).to.equal(0);
     })
-})
+}) 
 
 describe('calculateDailyFluidOunces Function', function () {
     let hydrationData;
