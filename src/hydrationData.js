@@ -31,7 +31,8 @@ console.log(`Fluid ounces for user 1 on 2023/03/24:`, calculateDailyFluidOunces(
 
 
 // Return how many fluid ounces of water a user consumed each day over the course of a week (7 days)
-function calculateWeeklyFluidOunces(id, startDate, hydrationData){
+function calculateWeeklyFluidOunces(id, startDate, hydrationDataObject){
+    const hydrationData = hydrationDataObject.hydrationData;
     const userHydrationData = hydrationData.filter(data => data.userID === id && data.date >= startDate)
     if (userHydrationData.length === 0) {
         return 'No data found.'
@@ -42,6 +43,8 @@ function calculateWeeklyFluidOunces(id, startDate, hydrationData){
         return weeklyFluidOunces;
     }
 }
+
+console.log('WeeklyFluidOuncesForUser1:', calculateWeeklyFluidOunces(1, '2023/03/01', hydrationData))
 
 export { calculateAverageFluidOunces, calculateDailyFluidOunces, calculateWeeklyFluidOunces };
 

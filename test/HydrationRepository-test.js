@@ -325,30 +325,30 @@ describe('calculateWeeklyFluidOunces Function', function () {
     })
 
     it('array should be 7 elements long', () => {
-        const user1WeeklyFluidOunces = calculateWeeklyFluidOunces(1, '2023/03/01', hydrationData);
-        const user2WeeklyFluidOunces = calculateWeeklyFluidOunces(2, '2023/03/01', hydrationData);
-        const user3WeeklyFluidOunces = calculateWeeklyFluidOunces(3, '2023/03/01', hydrationData);
+        const user1WeeklyFluidOunces = calculateWeeklyFluidOunces(1, '2023/03/01', {hydrationData});
+        const user2WeeklyFluidOunces = calculateWeeklyFluidOunces(2, '2023/03/01', {hydrationData});
+        const user3WeeklyFluidOunces = calculateWeeklyFluidOunces(3, '2023/03/01', {hydrationData});
         expect(user1WeeklyFluidOunces.length).to.equal(7);
         expect(user2WeeklyFluidOunces.length).to.equal(7);
         expect(user3WeeklyFluidOunces.length).to.equal(7);
     })
 
     it('should return the correct fluid ounces of water a user consumed each day over the course of a week', () => {
-        const user1WeeklyFluidOunces = calculateWeeklyFluidOunces(1, '2023/03/01', hydrationData);
-        const user2WeeklyFluidOunces = calculateWeeklyFluidOunces(2, '2023/03/01', hydrationData);
-        const user3WeeklyFluidOunces = calculateWeeklyFluidOunces(3, '2023/03/01', hydrationData);
+        const user1WeeklyFluidOunces = calculateWeeklyFluidOunces(1, '2023/03/01', {hydrationData});
+        const user2WeeklyFluidOunces = calculateWeeklyFluidOunces(2, '2023/03/01', {hydrationData});
+        const user3WeeklyFluidOunces = calculateWeeklyFluidOunces(3, '2023/03/01', {hydrationData});
         expect(user1WeeklyFluidOunces).to.deep.equal([28, 35, 40, 56, 60, 70, 80])
         expect(user2WeeklyFluidOunces).to.deep.equal([32, 38, 45, 60, 70, 85, 90])
         expect(user3WeeklyFluidOunces).to.deep.equal([25, 30, 35, 40, 45, 50, 55])
     })
 
     it('should handle an empty array', () => {
-        const emptyWeeklyFluidOunces = calculateWeeklyFluidOunces(5, '2023/03/01', hydrationData)
+        const emptyWeeklyFluidOunces = calculateWeeklyFluidOunces(5, '2023/03/01', {hydrationData})
         expect(emptyWeeklyFluidOunces).to.equal('No data found.')
     })
 
     it('should handle if user has less than 7 days of data', () => {
-        const user4WeeklyFluidOunces = calculateWeeklyFluidOunces(4, '2023/03/01', hydrationData);
+        const user4WeeklyFluidOunces = calculateWeeklyFluidOunces(4, '2023/03/01', {hydrationData});
         expect(user4WeeklyFluidOunces).to.equal('Weekly data not available just yet! Check back soon');
     })
 })
