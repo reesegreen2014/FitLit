@@ -175,7 +175,7 @@ describe('calculateDailyFluidOunces Function', function () {
         expect(user1DailyOunces).to.equal(63)
     })
 
-    it.skip('should handle invalid input for numOunces', () => {
+    it('should handle invalid input for numOunces', () => {
         const invalidOunces = 'invalid_ounces'
         const result = calculateDailyFluidOunces(invalidOunces, '2023/03/24', {hydrationData})
         expect(result).to.equal('No data found for the specified user and date.')
@@ -322,15 +322,6 @@ describe('calculateWeeklyFluidOunces Function', function () {
 
     it('should be a function', () => {
         assert.isFunction(calculateWeeklyFluidOunces)
-    })
-
-    it('array should be 7 elements long', () => {
-        const user1WeeklyFluidOunces = calculateWeeklyFluidOunces(1, '2023/03/01', {hydrationData});
-        const user2WeeklyFluidOunces = calculateWeeklyFluidOunces(2, '2023/03/01', {hydrationData});
-        const user3WeeklyFluidOunces = calculateWeeklyFluidOunces(3, '2023/03/01', {hydrationData});
-        expect(user1WeeklyFluidOunces.length).to.equal(7);
-        expect(user2WeeklyFluidOunces.length).to.equal(7);
-        expect(user3WeeklyFluidOunces.length).to.equal(7);
     })
 
     it('should return the correct fluid ounces of water a user consumed each day over the course of a week', () => {

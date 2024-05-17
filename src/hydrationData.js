@@ -17,7 +17,6 @@ function calculateAverageFluidOunces(id, hydrationDataObject) {
 console.log(`Average fluid ounces for yourself:`, calculateAverageFluidOunces(1, hydrationData));
 
 
-
 function calculateDailyFluidOunces(userID, date, hydrationDataObject) {
     const hydrationData = hydrationDataObject.hydrationData;
     const userHydrationData = hydrationData.filter(data => data.userID === userID && data.date === date);
