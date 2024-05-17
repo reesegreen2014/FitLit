@@ -1,12 +1,12 @@
 import { assert, expect } from 'chai';
-const { calculateAverageFluidOunces } = require('../src/hydrationData.js');
+const { calculateAverageFluidOunces, calculateDailyFluidOunces } = require('../src/hydrationData.js');
 
 
 
 describe('calculateAverageFluidOunces Function', function () {
-    let user1, user2, user3, hydrationArray
+    let hydrationData;
     beforeEach(function () {
-        user1 = [
+       hydrationData = [
             {
                 "userID": 1,
                 "date": "2023/03/24",
@@ -27,8 +27,6 @@ describe('calculateAverageFluidOunces Function', function () {
                 "date": "2023/03/27",
                 "numOunces": 74
             },
-        ];
-        user2 = [
             {
                 "userID": 2,
                 "date": "2023/03/24",
@@ -49,9 +47,6 @@ describe('calculateAverageFluidOunces Function', function () {
                 "date": "2023/03/27",
                 "numOunces": 75
             },
-        ];
-
-        user3 = [
             {
                 "userID": 3,
                 "date": "2023/03/24",
@@ -73,32 +68,41 @@ describe('calculateAverageFluidOunces Function', function () {
                 "numOunces": 75
             },
         ];
-        hydrationArray = [user1, user2, user3];
     })
 
-    it.skip('should be a function', () => {
+    it('should be a function', () => {
         assert.isFunction(calculateAverageFluidOunces);
     })
 
-    it.skip('should return the users average fluid ounces consumed per day for all time', () => {
-        const user1Average = calculateAverageFluidOunces(user1);
-        const user2Average = calculateAverageFluidOunces(user2);
-        const user3Average = calculateAverageFluidOunces(user3);
-        expect(user1Average).to.equal()
+    it('should return the users average fluid ounces consumed per day for all time', () => {
+        const user1Average = calculateAverageFluidOunces(1, {hydrationData});
+        const user2Average = calculateAverageFluidOunces(2, {hydrationData});
+        const user3Average = calculateAverageFluidOunces(3, {hydrationData});
+        expect(user1Average).to.equal(58)
         expect(user2Average).to.equal(66.5)
         expect(user3Average).to.equal(62.5)
     })
-    it.skip('should return user1s average fluid ounces consumed per day for all time', () => {
-        const expectedAverage = calculateAverageFluidOunces(user1);
+    it('should return user1s average fluid ounces consumed per day for all time', () => {
+        const expectedAverage = calculateAverageFluidOunces(1, {hydrationData});
         const actualAverage = (28 + 35 + 95 + 74) / 4;
         expect(actualAverage).to.equal(expectedAverage);
+    })
+
+    it('should return 0 if hydration data is empty', () => {
+        const emptyDataAverage = calculateAverageFluidOunces(1, { hydrationData: [] });
+        expect(emptyDataAverage).to.equal(0);
+    })
+
+    it('should return 0 if user ID does not exist in the data', () => {
+        const nonExistentUserAverage = calculateAverageFluidOunces(4, {hydrationData});
+        expect(nonExistentUserAverage).to.equal(0);
     })
 })
 
 describe('calculateDailyFluidOunces Function', function () {
-    let user1, user2, user3
+    let hydrationData;
     this.beforeEach(function () {
-        user1 = [
+        hydrationData = [
             {
                 "userID": 1,
                 "date": "2023/03/24",
@@ -119,8 +123,6 @@ describe('calculateDailyFluidOunces Function', function () {
                 "date": "2023/03/27",
                 "numOunces": 74
             },
-        ];
-        user2 = [
             {
                 "userID": 2,
                 "date": "2023/04/24",
@@ -141,8 +143,6 @@ describe('calculateDailyFluidOunces Function', function () {
                 "date": "2023/03/27",
                 "numOunces": 75
             },
-        ];
-        user3 = [
             {
                 "userID": 3,
                 "date": "2023/03/24",
@@ -164,40 +164,30 @@ describe('calculateDailyFluidOunces Function', function () {
                 "numOunces": 75
             },
         ];
-        hydrationArray = [user1, user2, user3]
+    })
+
+    it('should be a function', () => {
+        assert.isFunction(calculateDailyFluidOunces);
     })
 
     it('should return the correct fluid ounces consumed for a specific day', () => {
-        const user1DailyOunces = calculateDailyOunces(hydrationArray, 1)
-        expect(user1DailyOunces).to.deep.equal(63)
+        const user1DailyOunces = calculateDailyFluidOunces(1, '2023/03/24', { hydrationData });
+        expect(user1DailyOunces).to.equal(63)
     })
 
     it('should handle invalid input for numOunces', () => {
         const invalidOunces = 'invalid_ounces'
-        const result = calculateDailyOunces(hydrationArray, invalidOunces)
-        expect(result).to.equal('Invalid Ounces Input')
+        const result = calculateDailyFluidOunces(invalidOunces, '2023/03/24', {hydrationData})
+        expect(result).to.equal('No data found for the specified user and date.')
     })
 
-    it('should handle a zero value for numOunces', () => {
-        const zeroOunces = 'zero_ounces'
-        const
-    })
+    it('should return appropriate message for nonexistent user and date combination', () => {
+        const result = calculateDailyFluidOunces(4, '2023/03/24', { hydrationData });
+        expect(result).to.equal('No data found for the specified user and date.');
+    });
 
-
-
-
-// test ideas
-//per day
-//returns the correct fluid ounces they consumed for a specific day
-//can handle 0 ounces consumed
-
-//per week
-//return array of fluid ounces consumed each day over the course of a week
-//can handle partial weeks?
-
-// -Empty Array
-// -Array with no hydration data
-// -Array with objects missing hydration data (function must filter out objects without hydration data)
-// -Edge cases in hydration values: zero values, extremely large values, non-numeric values, etc
-// -Can handle duplicate objects (or perhaps duplicate dates?
-
+    it('should return appropriate message when no data is found', () => {
+        const result = calculateDailyFluidOunces(1, '2023/03/28', { hydrationData });
+        expect(result).to.equal('No data found for the specified user and date.');
+    });
+})
