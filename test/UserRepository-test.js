@@ -198,8 +198,9 @@ describe('getAverageStepGoal', () => {
   //users with negative step goals
 
   it('should return average steps', () => {
-    const average = calculateAverageStepGoal(userArray)
-    expect(average).to.equal(6000)
+    const expectedAverage = calculateAverageStepGoal(userArray)
+    const actualAverage = (7000 + 6000 + 10000 + 3000 + 4000) / 5;
+    expect(expectedAverage).to.equal(actualAverage);
   })
 
   it('should handle an empty array of users', () => {

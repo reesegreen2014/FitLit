@@ -11,11 +11,20 @@ function getRandomIndex(array) {
 }
 
 function displayRandomUser() {
-let randomIndex = getRandomIndex(users.users)
-let selectedIndex = getUserData(users.users, randomIndex)
- userInfo.innerText = `Your data as of yet: ID: ${selectedIndex.id}, Stride Length ${selectedIndex.strideLength}, Daily Step Goal ${selectedIndex.dailyStepGoal}, Friends: ${selectedIndex.friends} `
- userName.innerText = `${selectedIndex.name}`
- displayStepGoal()
+  let randomIndex = getRandomIndex(users.users)
+  let { id, strideLength, dailyStepGoal, friends, name } = getUserData(users.users, randomIndex)
+  userInfo.innerHTML = `Your information: 
+<p>ID: ${id}, </p>
+<p> Stride Length ${strideLength}, </p>
+<p> Daily Step Goal ${dailyStepGoal}, </p>
+<p> Friends: ${getFriendsNames(friends, users.users)}</p>`
+  userName.innerText = `${name}`
+  displayStepGoal()
+}
+
+function getFriendsNames(friendsIds, users) {
+  const friends = users.filter((user) => friendsIds.includes(user.id))
+  return friends.map((friend) => friend.name).join(', ')
 }
 
 addEventListener('load', displayRandomUser)

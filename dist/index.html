@@ -1,14 +1,23 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <title>Fitlit</title>
-  </head>
-  <body>
-    <h1>Activity Tracker</h1>
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
-
-<!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤾 Fit Lit ⛹️‍♀️</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome, <span class="userFirstName"></span>!</h1>
+    </header>
+    <main>
+        <section id="userInfo">
+            <!--this will show the user all of their info-->
+        </section>
+        <section id="stepGoalComparison">
+            <p>Your step goal compared to the average: <span id="stepGoalComparisonResult"></span></p>
+        </section>
+    </main>
     <script src="bundle.js"></script>
-  </body>
+
+</body>
 </html>
