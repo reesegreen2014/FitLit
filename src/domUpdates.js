@@ -1,16 +1,7 @@
-<<<<<<< HEAD
-import { getUserData, calculateAverageStepGoal } from './userData.js'
-import users from './data/users.js'
-
-const userInfo = document.querySelector('#userInfo')
-const userName = document.querySelector('.userFirstName')
-const stepGoal = document.querySelector('#stepGoalComparison')
-=======
 import { getUserData, calculateAverageStepGoal } from './userData.js';
 import { calculateDailyFluidOunces } from './hydrationData.js';
 import users from './data/users.js';
 import hydrationData from './data/hydration.js';
->>>>>>> 8c293d1823f66d8b2eeff7752194292345126c02
 
 const userInfo = document.querySelector('#userInfo');
 const userName = document.querySelector('.userFirstName');
@@ -22,29 +13,6 @@ function getRandomIndex(array) {
 }
 
 function displayRandomUser() {
-<<<<<<< HEAD
-  let randomIndex = getRandomIndex(users.users)
-  let { id, strideLength, dailyStepGoal, friends, name } = getUserData(users.users, randomIndex)
-  userInfo.innerHTML = `Your information: 
-<p>ID: ${id}, </p>
-<p> Stride Length ${strideLength}, </p>
-<p> Daily Step Goal ${dailyStepGoal}, </p>
-<p> Friends: ${getFriendsNames(friends, users.users)}</p>`
-  userName.innerText = `${name}`
-  displayStepGoal()
-}
-
-function getFriendsNames(friendsIds, users) {
-  const friends = users.filter((user) => friendsIds.includes(user.id))
-  return friends.map((friend) => friend.name).join(', ')
-}
-
-displayRandomUser()
-function displayStepGoal() {
-  let stepGoalComparison = calculateAverageStepGoal(users.users)
-  stepGoal.innerText = `Your step goal compared with all other users: ${stepGoalComparison}`
-
-=======
   const randomIndex = getRandomIndex(users.users);
   const { id, strideLength, dailyStepGoal, friends, name } = getUserData(users.users, randomIndex);
   userInfo.innerHTML = `Your information: 
@@ -64,16 +32,9 @@ function getFriendsNames(friendsIds, users) {
   }
   const friends = users.filter((user) => friendsIds.includes(user.id));
   return friends.map((friend) => friend.name).join(', ');
->>>>>>> 8c293d1823f66d8b2eeff7752194292345126c02
 }
 addEventListener('load', displayRandomUser)
 
-<<<<<<< HEAD
-export {
-  getRandomIndex, displayRandomUser
-}
-
-=======
 function displayStepGoal(randomIndex, { id, dailyStepGoal }) {
   const selectedUser = getUserData(users.users, randomIndex);
   const userStepGoal = dailyStepGoal;
@@ -148,4 +109,3 @@ displayWaterConsumptionLatestWeek();
 addEventListener('load', displayRandomUser);
 
 export { getRandomIndex, displayRandomUser, displayStepGoal, displayWaterConsumptionToday };
->>>>>>> 8c293d1823f66d8b2eeff7752194292345126c02
