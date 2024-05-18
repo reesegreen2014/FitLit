@@ -2,7 +2,7 @@ function fetchUsers() {
     return fetch('https://fitlit-api.herokuapp.com/api/v1/users')
       .then(response => response.json())
       .then(data => {
-        console.log('Fetched users:', data); // Adjust based on actual data structure
+        //console.log('Fetched users:', data); // Adjust based on actual data structure
         if (!data.users) {
           throw new Error('Users key not found in response');
         }
@@ -15,7 +15,7 @@ function fetchUsers() {
     return fetch('https://fitlit-api.herokuapp.com/api/v1/activity')
       .then(response => response.json())
       .then(data => {
-        console.log('Sample activity data:', data.activityData[0]);
+        //console.log('Sample activity data:', data.activityData[0]);
         if (!data.activityData || !Array.isArray(data.activityData)) {
           throw new Error('No activity data found or data format incorrect');
         }
