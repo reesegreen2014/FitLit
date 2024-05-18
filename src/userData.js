@@ -1,30 +1,35 @@
-function getUserData(users, id) {
-    const computerUser = users.find((user) => user.id === id)
-    if (!computerUser) {
-        return 'Invalid ID'
-    }
-    if (typeof id !== 'number') {
-        return 'Invalid ID'
-    }
-    return computerUser;
+import { fetchUsers, fetchActivityData } from './apiCalls.js';
+
+function getUserData(id) {
+  return fetchUsers()
+    .then(users => {
+      const user = users.find(user => user.id === id);
+      if (!user) {
+        throw new Error('Invalid ID');
+      }
+      return user;
+    });
 }
 
-function calculateAverageStepGoal(users) {
-    let invalidFound = false;
-    const totalSteps = users.reduce((acc, user) => {
-        if (user.dailyStepGoal < 0) {
-            invalidFound = true;
+function calculateAverageStepGoal() {
+  return fetchActivityData()
+    .then(activities => {
+      let invalidFound = false;
+      const totalSteps = activities.reduce((acc, activity) => {
+        if (activity.numSteps < 0) {
+          invalidFound = true;
         }
-        acc += user.dailyStepGoal;
+        acc += activity.numSteps;
         return acc;
-    }, 0);
-    if (invalidFound) {
-        return 'Invalid Step Goal';
-    }
-    if (!totalSteps) {
-        return 'No User Information Provided';
-    }
-    return totalSteps / users.length;
+      }, 0);
+      if (invalidFound) {
+        throw new Error('Invalid Step Goal');
+      }
+      if (!totalSteps) {
+        throw new Error('No Activity Information Provided');
+      }
+      return totalSteps / activities.length;
+    });
 }
 
 export { getUserData, calculateAverageStepGoal };
