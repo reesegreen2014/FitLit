@@ -33,7 +33,7 @@ console.log(`Fluid ounces for user 1 on 2023/03/24:`, calculateDailyFluidOunces(
 function calculateWeeklyFluidOunces(id, startDate, hydrationDataObject){
     const hydrationData = hydrationDataObject.hydrationData;
     const userHydrationData = hydrationData.filter(data => data.userID === id && data.date >= startDate)
-    if (userHydrationData.length === 0) {
+    if (!userHydrationData.length) {
         return 'No data found.'
     } else if (userHydrationData.length < 7) {
         return `Weekly data not available just yet! Check back soon`
