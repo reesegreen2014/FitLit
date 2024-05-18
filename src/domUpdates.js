@@ -5,18 +5,18 @@ import { getAverageHrs, getAverageQuality } from './sleep.js';
 
 const userInfo = document.querySelector('#userInfo');
 const userName = document.querySelector('.userFirstName');
-const stepGoal = document.querySelector('#stepGoalComparison');
+const stepGoal = document.querySelector('#stepGoalComparisonResult');
 const waterConsumptionElement = document.querySelector('#waterConsumption');
-const sleepAverageElement = document.querySelector('#sleepAverage');
-const sleepQualityElement = document.querySelector('#sleepQuality');
+const sleepAverageElement = document.querySelector('#sleepAverageResult');
+const sleepQualityElement = document.querySelector('#sleepQualityResult');
 
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
 
 function displayRandomUser() {
-  Promise.all([fetchUsers(), fetchHydrationData()])
-    .then(([users, hydrationData]) => {
+  fetchUsers()
+    .then(users => {
       const randomIndex = getRandomIndex(users);
       const { id, strideLength, dailyStepGoal, friends, name } = users[randomIndex];
       userInfo.innerHTML = `Your information: 
@@ -25,7 +25,7 @@ function displayRandomUser() {
         <p>Daily Step Goal: ${dailyStepGoal}</p>
         <p>Friends: ${getFriendsNames(friends, users)}</p>`;
       userName.innerText = `${name}`;
-      displayStepGoal({ dailyStepGoal });
+      displayStepGoal(dailyStepGoal);
       displayWaterConsumptionToday(id);
       displayWaterConsumptionLatestWeek(id);
       displayAverageSleepHours(id);
@@ -42,9 +42,9 @@ function getFriendsNames(friendsIds, users) {
   return friends.map((friend) => friend.name).join(', ');
 }
 
-function displayStepGoal({ dailyStepGoal }) {
-  Promise.all([fetchUsers(), calculateAverageStepGoal()])
-    .then(([users, averageStepGoal]) => {
+function displayStepGoal(dailyStepGoal) {
+  calculateAverageStepGoal()
+    .then(averageStepGoal => {
       const userStepGoal = dailyStepGoal;
       let comparisonMessage = "";
       if (userStepGoal > averageStepGoal) {
@@ -128,7 +128,11 @@ function displayWaterConsumptionLatestWeek(id) {
 function displayAverageSleepHours(userID) {
   getAverageHrs(userID)
     .then(averageHrs => {
-      sleepAverageElement.innerText = `Average hours of sleep: ${averageHrs}`;
+      if (sleepAverageElement) {
+        sleepAverageElement.innerText = `${averageHrs}`;
+      } else {
+        console.error('sleepAverageElement not found');
+      }
     })
     .catch(error => console.error('Error displaying average sleep hours:', error));
 }
@@ -136,7 +140,11 @@ function displayAverageSleepHours(userID) {
 function displayAverageSleepQuality(userID) {
   getAverageQuality(userID)
     .then(averageQuality => {
-      sleepQualityElement.innerText = `Average sleep quality: ${averageQuality}`;
+      if (sleepQualityElement) {
+        sleepQualityElement.innerText = `${averageQuality}`;
+      } else {
+        console.error('sleepQualityElement not found');
+      }
     })
     .catch(error => console.error('Error displaying average sleep quality:', error));
 }
@@ -144,3 +152,5 @@ function displayAverageSleepQuality(userID) {
 addEventListener('load', displayRandomUser);
 
 export { getRandomIndex, displayRandomUser, displayStepGoal, displayWaterConsumptionToday };
+
+

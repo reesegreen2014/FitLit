@@ -35,3 +35,4 @@ function calculateWeeklyFluidOunces(id, startDate) {
 }
 
 export { calculateAverageFluidOunces, calculateDailyFluidOunces, calculateWeeklyFluidOunces };
+
