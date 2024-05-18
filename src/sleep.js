@@ -36,10 +36,21 @@ function getDailyHrs(userData, targetDate) {
     }
 }
 
+function getDailyQuality(userData, targetDate) {
+    if (!userData.sleepData.length) {
+        return 'No data available.'
+    }
+    const specifiedQuality = userData.sleepData.find((day) => day.date === targetDate)
+    if (specifiedQuality) {
+        return `You experienced a sleep quality of ${specifiedQuality.qualityOfSleep}.`
+    } else {
+        return 'No data available for that date.'
+    }
+}
 
 export {
     getAverageHrs,
     getAverageQuality,
     getDailyHrs,
-    //  getDailyQuality
+     getDailyQuality
 }
