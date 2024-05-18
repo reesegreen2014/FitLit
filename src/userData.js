@@ -33,3 +33,4 @@ function calculateAverageStepGoal() {
 }
 
 export { getUserData, calculateAverageStepGoal };
+

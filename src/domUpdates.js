@@ -1,11 +1,14 @@
 import { getUserData, calculateAverageStepGoal } from './userData.js';
 import { calculateDailyFluidOunces } from './hydrationData.js';
 import { fetchUsers, fetchHydrationData } from './apiCalls.js';
+import { getAverageHrs, getAverageQuality } from './sleep.js';
 
 const userInfo = document.querySelector('#userInfo');
 const userName = document.querySelector('.userFirstName');
 const stepGoal = document.querySelector('#stepGoalComparison');
 const waterConsumptionElement = document.querySelector('#waterConsumption');
+const sleepAverageElement = document.querySelector('#sleepAverage');
+const sleepQualityElement = document.querySelector('#sleepQuality');
 
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
@@ -22,9 +25,11 @@ function displayRandomUser() {
         <p>Daily Step Goal: ${dailyStepGoal}</p>
         <p>Friends: ${getFriendsNames(friends, users)}</p>`;
       userName.innerText = `${name}`;
-      displayStepGoal(randomIndex, { id, dailyStepGoal });
+      displayStepGoal({ dailyStepGoal });
       displayWaterConsumptionToday(id);
       displayWaterConsumptionLatestWeek(id);
+      displayAverageSleepHours(id);
+      displayAverageSleepQuality(id);
     })
     .catch(error => console.error('Error displaying random user:', error));
 }
@@ -83,7 +88,7 @@ function displayWaterConsumptionLatestWeek(id) {
   fetchHydrationData()
     .then(hydrationData => {
       const userHydrationData = hydrationData.hydrationData.filter(data => data.userID === id);
-      if (userHydrationData.length) {
+      if (!userHydrationData.length) {
         waterConsumptionElement.innerText = "No data found for the specified user and date.";
         return;
       }
@@ -118,6 +123,22 @@ function displayWaterConsumptionLatestWeek(id) {
         })
         .catch(error => console.error('Error displaying water consumption latest week:', error));
     });
+}
+
+function displayAverageSleepHours(userID) {
+  getAverageHrs(userID)
+    .then(averageHrs => {
+      sleepAverageElement.innerText = `Average hours of sleep: ${averageHrs}`;
+    })
+    .catch(error => console.error('Error displaying average sleep hours:', error));
+}
+
+function displayAverageSleepQuality(userID) {
+  getAverageQuality(userID)
+    .then(averageQuality => {
+      sleepQualityElement.innerText = `Average sleep quality: ${averageQuality}`;
+    })
+    .catch(error => console.error('Error displaying average sleep quality:', error));
 }
 
 addEventListener('load', displayRandomUser);
