@@ -23,9 +23,13 @@ function displayRandomUser() {
   userName.innerText = `${name}`;
   displayStepGoal(randomIndex, { id, dailyStepGoal });
   displayWaterConsumptionToday(id)
+  displayWaterConsumptionLatestWeek(id);
 }
 
 function getFriendsNames(friendsIds, users) {
+  if (!Array.isArray(friendsIds)) {
+    return "No friends found";
+  }
   const friends = users.filter((user) => friendsIds.includes(user.id));
   return friends.map((friend) => friend.name).join(', ');
 }
@@ -64,7 +68,42 @@ function displayWaterConsumptionToday(id) {
   }
 }
 
+function displayWaterConsumptionLatestWeek(id) {
+  const userHydrationData = hydrationData.hydrationData.filter(data => data.userID === id);
+  if (userHydrationData.length === 0) {
+    waterConsumptionElement.innerText = "No data found for the specified user and date.";
+    return;
+  }
+
+  userHydrationData.sort((a, b) => new Date(b.date) - new Date(a.date)); 
+  const latestWeekDates = [];
+  const today = new Date(userHydrationData[0].date); 
+
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(today);
+    date.setDate(today.getDate() - i);
+    const year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    if(month < 10) {
+      month = '0' + month;
+    }
+    let day = date.getDate(); 
+    if (day < 10) { 
+      day = "0" + day;
+    }
+    latestWeekDates.push(`${year}/${month}/${day}`);
+  }
+
+  let waterConsumptionText = '';
+  latestWeekDates.forEach(date => {
+    const waterConsumed = calculateDailyFluidOunces(id, date, hydrationData);
+    waterConsumptionText += `${date}: ${waterConsumed !== "No data found for the specified user and date." ? waterConsumed + ' ounces' : 'No data found'}\n`;
+  });
+  waterConsumptionElement.innerText = waterConsumptionText;
+}
+
 displayWaterConsumptionToday();
+displayWaterConsumptionLatestWeek();
 
 addEventListener('load', displayRandomUser);
 
