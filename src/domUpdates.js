@@ -23,10 +23,10 @@ function displayRandomUser() {
       const randomIndex = getRandomIndex(users);
       const { id, strideLength, dailyStepGoal, friends, name } = users[randomIndex];
       userInfo.innerHTML = `<h2>Your Info:</h2>
-        <p>ID: ${id}</p>
-        <p>Stride Length: ${strideLength}</p>
-        <p>Daily Step Goal: ${dailyStepGoal}</p>
-        <p>Friends: ${getFriendsNames(friends, users)}</p>`;
+        <p>Your ID: ${id}</p>
+        <p>Your Stride Length: ${strideLength}</p>
+        <p>Your Daily Step Goal: ${dailyStepGoal}</p>
+        <p>Your Friends: ${getFriendsNames(friends, users)}</p>`;
       userName.innerText = `${name}`;
       displayStepGoal(dailyStepGoal);
       displayWaterConsumptionToday(id);
