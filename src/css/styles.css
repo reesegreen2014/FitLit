@@ -84,6 +84,13 @@ main {
   text-align: center;
 }
 
+.waterConsumptionHeader{
+  font-size: 20px;
+  color: #5e805b;
+  font-family: 'Itim', cursive;
+  font-size: 2em; 
+}
+
 #userInfo {
   text-align: center;
   margin-top: 2rem;
