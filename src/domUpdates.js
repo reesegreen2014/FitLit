@@ -203,6 +203,12 @@ toggleButton.addEventListener('click', () => {
   updateWaterConsumption(id);
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  const welcomeOverlay = document.querySelector('.welcome-overlay');
+  setTimeout(() => {
+    welcomeOverlay.classList.add('fade-out');
+  }, 6000); // Adjust timing to match animation duration
+});
 
 addEventListener('load', displayRandomUser);
 
