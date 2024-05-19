@@ -12,9 +12,23 @@ body {
   font-family: 'Roboto', sans-serif;
   font-weight: 700; 
   font-size: 2.5em; 
-  color: #333;
+  color: #0f3332;
   text-align: center; 
   margin-top: 20px;
+  position: relative;
+  padding-bottom: 10px;
+  letter-spacing: 1px;
+  line-height: 1.2;
+  transition: color 0.3s ease-in-out;
+  text-decoration: underline;
+}
+
+.h1-header:hover {
+  color: #379cc1; 
+}
+
+.h1-header:hover::after {
+  width: 80%;
 }
 
 .welcome-message {
@@ -45,6 +59,10 @@ h2 {
   color: #333; 
   margin: 15px;
   text-align: center;
+}
+
+.dataDashboard {
+  text-decoration: underline;
 }
 
 main {
