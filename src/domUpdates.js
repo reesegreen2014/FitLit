@@ -11,6 +11,7 @@ const sleepAverageElement = document.querySelector('#sleepAverageResult');
 const sleepQualityElement = document.querySelector('#sleepQualityResult');
 const dailySleepHoursElement = document.querySelector('#dailySleepHoursResult');
 const dailySleepQualityElement = document.querySelector('#dailySleepQualityResult');
+const toggleButton = document.querySelector('#toggleButton')
 
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
@@ -21,7 +22,7 @@ function displayRandomUser() {
     .then(users => {
       const randomIndex = getRandomIndex(users);
       const { id, strideLength, dailyStepGoal, friends, name } = users[randomIndex];
-      userInfo.innerHTML = `Your information: 
+      userInfo.innerHTML = `<h2>Your Info:</h2>
         <p>ID: ${id}</p>
         <p>Stride Length: ${strideLength}</p>
         <p>Daily Step Goal: ${dailyStepGoal}</p>
@@ -84,9 +85,10 @@ function displayWaterConsumptionToday(id) {
     .then(currentDate => calculateDailyFluidOunces(id, currentDate))
     .then(waterConsumedToday => {
       if (waterConsumedToday !== undefined) {
-        waterConsumptionElement.innerText = `Water consumed today: ${waterConsumedToday}`;
+        waterConsumptionElement.innerHTML = `<h2>Your Water Consumption:</h2>`;
+        waterConsumptionElement.innerHTML += `Water consumed today: ${waterConsumedToday}`;
       } else {
-        waterConsumptionElement.innerText = "Water consumed today: No data found for the specified user and date.";
+        waterConsumptionElement.innerHTML = "<h2>Your Water Consumption:</h2> Water consumed today: No data found for the specified user and date.";
       }
     })
     .catch(error => console.error('Error displaying water consumption today:', error));
@@ -97,7 +99,7 @@ function displayWaterConsumptionLatestWeek(id) {
     .then(hydrationData => {
       const userHydrationData = hydrationData.hydrationData.filter(data => data.userID === id);
       if (!userHydrationData.length) {
-        waterConsumptionElement.innerText = "No data found for the specified user and date.";
+        waterConsumptionElement.innerText = "<h2>Your Water Consumption:</h2> No data found for the specified user and date.";
         return;
       }
 
@@ -125,9 +127,9 @@ function displayWaterConsumptionLatestWeek(id) {
         .then(results => {
           results.forEach((waterConsumed, index) => {
             const date = latestWeekDates[index];
-            waterConsumptionText += `${date}: ${waterConsumed !== "No data found for the specified user and date." ? waterConsumed + ' ounces' : 'No data found'}\n`;
+            waterConsumptionText += `${date}: ${waterConsumed !== "No data found for the specified user and date." ? waterConsumed + ' ounces' : 'No data found'}<br>`;
           });
-          waterConsumptionElement.innerText = waterConsumptionText;
+          waterConsumptionElement.innerHTML = `<h2>Your Water Consumption:</h2>` + waterConsumptionText;
         })
         .catch(error => console.error('Error displaying water consumption latest week:', error));
     });

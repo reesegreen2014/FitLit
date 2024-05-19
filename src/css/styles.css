@@ -39,6 +39,13 @@ h1 {
   margin: 0;
 }
 
+h2 {
+  font-family: 'Itim', cursive;
+  font-size: 2em; 
+  color: #333; 
+  text-align: center;
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -75,15 +82,11 @@ main {
   align-items: center;
 }
 
-#toggleButton {
-  color: black;
-  /* display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  margin-top: 10px;
+#stepGoalComparison {
   display: flex;
-  justify-content: center;
-  text-align: center; */
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 #waterConsumptionText {
