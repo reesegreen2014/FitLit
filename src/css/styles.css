@@ -43,6 +43,7 @@ h2 {
   font-family: 'Itim', cursive;
   font-size: 2em; 
   color: #333; 
+  margin: 15px;
   text-align: center;
 }
 
@@ -74,12 +75,14 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
 #sleepQuality {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
 #stepGoalComparison {
@@ -97,4 +100,16 @@ main {
 #userInfo {
   text-align: center;
   margin-top: 2rem;
+}
+
+
+.userData {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 1rem;
+  min-width: 50%;
+  min-height: 30%;
+  justify-items: center; 
+  margin-top: 1rem; 
+  max-width: 600px; 
 }
