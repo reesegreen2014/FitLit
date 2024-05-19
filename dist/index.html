@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🤾 Fit Lit ⛹️‍♀️</title>
+    <link rel="stylesheet" href="./src/css.css">
 </head>
 <body>
     <header>
-        <h1>Welcome, <span class="userFirstName"></span>!</h1>
+        <h1 class="h1-header">Activity Tracker</h1>
+        <h2 class="welcome-message">Welcome, <span class="userFirstName"></span>!</h2>
     </header>
     <main>
-        <section id="userInfo">
-            <!--this will show the user all of their info-->
+        <section id="userInfo" class="box">
+            <!-- This will show the user all of their info -->
         </section>
-        <section id="stepGoalComparison">
+        <section id="stepGoalComparison" class="box">
             <p>Your step goal compared to the average: <span id="stepGoalComparisonResult"></span></p>
         </section>
-    </main>
-    <main>
-        <section id="waterConsumption">
-            <p><span id="waterConsumption"></span><p>
+        <section id="waterConsumption" class="box">
+            <p id="waterConsumptionText"></p>
+            <button id="toggleButton">Show Weekly Data</button>
         </section>
     </main>
     <script src="bundle.js"></script>
-    <link rel="stylesheet" href="styles.css">
-
 </body>
 </html>
