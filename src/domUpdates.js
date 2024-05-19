@@ -185,6 +185,23 @@ function displayDailySleepQuality(userID, date) {
     .catch(error => console.error('Error displaying daily sleep quality:', error));
 }
 
+function updateWaterConsumption(id) {
+  if (currentView === 'day') {
+    displayWaterConsumptionToday(id);
+  } else {
+    displayWaterConsumptionLatestWeek(id);
+  }
+}
+
+toggleButton.addEventListener('click', () => {
+  currentView = currentView === 'day' ? 'week' : 'day';
+  toggleButton.innerText = currentView === 'day' ? 'Show Weekly Data' : 'Show Daily Data';
+  const randomIndex = getRandomIndex(users.users);
+  const { id } = getUserData(users.users, randomIndex);
+  updateWaterConsumption(id);
+});
+
+
 addEventListener('load', displayRandomUser);
 
 export { getRandomIndex, displayRandomUser, displayStepGoal, displayWaterConsumptionToday };
