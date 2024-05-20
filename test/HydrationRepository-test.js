@@ -325,24 +325,25 @@ describe('calculateWeeklyFluidOunces Function', function () {
     });
 
     it('should return the correct fluid ounces of water a user consumed each day over the course of a week', () => {
-        const user1WeeklyFluidOunces = calculateWeeklyFluidOunces({ hydrationData }, 1, '2023/03/01');
-        const user2WeeklyFluidOunces = calculateWeeklyFluidOunces({ hydrationData }, 2, '2023/03/01');
-        const user3WeeklyFluidOunces = calculateWeeklyFluidOunces({ hydrationData }, 3, '2023/03/01');
+        const user1WeeklyFluidOunces = calculateWeeklyFluidOunces({ hydrationData }, 1, '2023/03/07');
+        const user2WeeklyFluidOunces = calculateWeeklyFluidOunces({ hydrationData }, 2, '2023/03/07');
+        const user3WeeklyFluidOunces = calculateWeeklyFluidOunces({ hydrationData }, 3, '2023/03/07');
         expect(user1WeeklyFluidOunces).to.deep.equal([28, 35, 40, 56, 60, 70, 80]);
         expect(user2WeeklyFluidOunces).to.deep.equal([32, 38, 45, 60, 70, 85, 90]);
         expect(user3WeeklyFluidOunces).to.deep.equal([25, 30, 35, 40, 45, 50, 55]);
     });
 
     it('should handle an empty array', () => {
-        const emptyWeeklyFluidOunces = calculateWeeklyFluidOunces({ hydrationData }, 5, '2023/03/01');
-        expect(emptyWeeklyFluidOunces).to.equal('Weekly data not available just yet! Check back soon');
+        const emptyWeeklyFluidOunces = calculateWeeklyFluidOunces({ hydrationData: [] }, 5, '2023/03/07');
+        expect(emptyWeeklyFluidOunces).to.equal('Weekly data not available just yet! Check back soon.');
     });
 
     it('should handle if user has less than 7 days of data', () => {
-        const user4WeeklyFluidOunces = calculateWeeklyFluidOunces({ hydrationData }, 4, '2023/03/01');
-        expect(user4WeeklyFluidOunces).to.equal('Weekly data not available just yet! Check back soon');
+        const user4WeeklyFluidOunces = calculateWeeklyFluidOunces({ hydrationData }, 4, '2023/03/07');
+        expect(user4WeeklyFluidOunces).to.equal('Weekly data not available just yet! Check back soon.');
     });
 });
+
 
 
 

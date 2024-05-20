@@ -1,5 +1,3 @@
-// sleep.js
-
 function getAverageHrs(data, userID) {
     const userData = data.sleepData.filter(d => d.userID === userID);
     if (!userData.length) {

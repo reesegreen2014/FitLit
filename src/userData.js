@@ -1,5 +1,3 @@
-// userData.js
-
 function getUserData(data, id) {
     const user = data.find(user => user.id === id);
     if (!user) {

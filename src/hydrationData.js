@@ -1,7 +1,3 @@
-// hydrationData.js
-
-//import { fetchHydrationData } from './apiCalls.js';
-
 function calculateAverageFluidOunces(data, id) {
   const hydrationData = data.hydrationData.filter(d => d.userID === id);
   if (hydrationData.length === 0) {
