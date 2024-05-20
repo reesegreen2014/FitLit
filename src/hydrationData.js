@@ -1,38 +1,48 @@
-import { fetchHydrationData } from './apiCalls.js';
+// hydrationData.js
 
-function calculateAverageFluidOunces(id) {
-  return fetchHydrationData()
-    .then(data => {
-      const hydrationData = data.hydrationData.filter(d => d.userID === id);
-      if (hydrationData.length === 0) {
-        return 0;
-      }
-      const totalFluidOunces = hydrationData.reduce((total, data) => total + data.numOunces, 0);
-      return totalFluidOunces / hydrationData.length;
-    });
+//import { fetchHydrationData } from './apiCalls.js';
+
+function calculateAverageFluidOunces(data, id) {
+  const hydrationData = data.hydrationData.filter(d => d.userID === id);
+  if (hydrationData.length === 0) {
+    return 0;
+  }
+  const totalFluidOunces = hydrationData.reduce((total, data) => total + data.numOunces, 0);
+  return totalFluidOunces / hydrationData.length;
 }
 
-function calculateDailyFluidOunces(userID, date) {
-  return fetchHydrationData()
-    .then(data => {
-      const hydrationData = data.hydrationData.filter(d => d.userID === userID && d.date === date);
-      if (hydrationData.length === 0) {
-        return "No data found for the specified user and date.";
-      }
-      return hydrationData.reduce((total, d) => total + d.numOunces, 0);
-    });
+function calculateDailyFluidOunces(data, userID, date) {
+  if (!data || !data.hydrationData) {
+    throw new Error("Invalid data: " + JSON.stringify(data));
+  }
+  const hydrationData = data.hydrationData.filter(d => d.userID === userID && d.date === date);
+  if (hydrationData.length === 0) {
+    return "No data found for the specified user and date.";
+  }
+  return hydrationData.reduce((total, d) => total + d.numOunces, 0);
 }
 
-function calculateWeeklyFluidOunces(id, startDate) {
-  return fetchHydrationData()
-    .then(data => {
-      const hydrationData = data.hydrationData.filter(d => d.userID === id && new Date(d.date) >= new Date(startDate));
-      if (hydrationData.length < 7) {
-        return `Weekly data not available just yet! Check back soon`;
-      }
-      return hydrationData.slice(0, 7).map(d => d.numOunces);
-    });
+function calculateWeeklyFluidOunces(data, id, endDate) {
+  if (!data || !data.hydrationData) {
+    throw new Error("Invalid data: " + JSON.stringify(data));
+  }
+
+  const end = new Date(endDate);
+  const start = new Date(end);
+  start.setDate(end.getDate() - 6);
+
+  const hydrationData = data.hydrationData.filter(d => {
+    const date = new Date(d.date);
+    return d.userID === id && date >= start && date <= end;
+  });
+
+  if (hydrationData.length === 0) {
+    return "Weekly data not available just yet! Check back soon.";
+  }
+
+  hydrationData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  return hydrationData.map(d => d.numOunces);
 }
 
 export { calculateAverageFluidOunces, calculateDailyFluidOunces, calculateWeeklyFluidOunces };
-
