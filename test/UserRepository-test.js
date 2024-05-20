@@ -137,8 +137,7 @@ describe('getAverageStepGoal', () => {
   });
 
   it('should handle an empty array of users', () => {
-    const average = calculateAverageStepGoal([]);
-    expect(average).to.equal('No Activity Information Provided');
+    expect(() => calculateAverageStepGoal([])).to.throw('No Activity Information Provided');
   });
 
   it('should handle invalid step goals', () => {

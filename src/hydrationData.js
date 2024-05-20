@@ -32,7 +32,7 @@ function calculateWeeklyFluidOunces(data, id, endDate) {
     return d.userID === id && date >= start && date <= end;
   });
 
-  if (hydrationData.length === 0) {
+  if (hydrationData.length < 7) {
     return "Weekly data not available just yet! Check back soon.";
   }
 
