@@ -2,14 +2,6 @@
 import { assert, expect } from 'chai';
 const { getUserData, calculateAverageStepGoal } = require('../src/userData.js');
 
-
-describe('User Repository', () => {
-  it('should run tests', function () {
-    expect(true).to.equal(true);
-  });
-});
-
-
 describe('user ID function', function () {
   let user1, user2, user3, userArray
   beforeEach(function () {

@@ -1,5 +1,5 @@
 import { assert, expect } from 'chai';
-const { calculateAverageFluidOunces, calculateDailyFluidOunces, calculateWeeklyFluidOunces } = require('../src/hydrationData.js');
+const { calculateAverageFluidOunces, calculateDailyFluidOunces, calculateWeeklyFluidOunces, getTotalFluidOunces } = require('../src/hydrationData.js');
 
 
 
