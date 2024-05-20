@@ -18,7 +18,7 @@ body {
   position: relative;
   padding-bottom: 10px;
   letter-spacing: 1px;
-  line-height: 1.2;
+  line-height: 1.0;
   transition: color 0.3s ease-in-out;
   text-decoration: underline;
 }
