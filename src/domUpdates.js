@@ -1,12 +1,17 @@
+// domUpdates.js
+
+// domUpdates.js
+
 import { getUserData, calculateAverageStepGoal } from './userData.js';
-import { calculateDailyFluidOunces } from './hydrationData.js';
-import { fetchUsers, fetchHydrationData, fetchSleepData } from './apiCalls.js';
+import { calculateDailyFluidOunces, calculateWeeklyFluidOunces } from './hydrationData.js';
+import { fetchUsers, fetchHydrationData, fetchSleepData, fetchActivityData } from './apiCalls.js';
 import { getAverageHrs, getAverageQuality, getDailyHrs, getDailyQuality } from './sleep.js';
 
 const userInfo = document.querySelector('#userInfo');
 const userName = document.querySelector('.userFirstName');
 const stepGoal = document.querySelector('#stepGoalComparisonResult');
-const waterConsumptionElement = document.querySelector('#waterConsumption');
+const waterConsumptionTodayElement = document.querySelector('#waterConsumptionToday');
+const waterConsumptionWeekElement = document.querySelector('#waterConsumptionWeek');
 const sleepAverageElement = document.querySelector('#sleepAverageResult');
 const sleepQualityElement = document.querySelector('#sleepQualityResult');
 const dailySleepHoursElement = document.querySelector('#dailySleepHoursResult');
@@ -27,7 +32,7 @@ function displayRandomUser() {
         <p>Daily Step Goal: ${dailyStepGoal}</p>
         <p>Friends: ${getFriendsNames(friends, users)}</p>`;
       userName.innerText = `${name}`;
-      displayStepGoal(dailyStepGoal);
+      displayStepGoal(users);
       displayWaterConsumptionToday(id);
       displayWaterConsumptionLatestWeek(id);
       displayAverageSleepHours(id);
@@ -49,10 +54,12 @@ function getFriendsNames(friendsIds, users) {
   return friends.map((friend) => friend.name).join(', ');
 }
 
-function displayStepGoal(dailyStepGoal) {
-  calculateAverageStepGoal()
-    .then(averageStepGoal => {
-      const userStepGoal = dailyStepGoal;
+function displayStepGoal(users) {
+  fetchActivityData()
+    .then(activityData => {
+      const averageStepGoal = calculateAverageStepGoal(activityData);
+      const randomUser = getRandomIndex(users);
+      const userStepGoal = users[randomUser].dailyStepGoal;
       let comparisonMessage = "";
       if (userStepGoal > averageStepGoal) {
         comparisonMessage = "higher";
@@ -80,13 +87,21 @@ function getCurrentDate(id) {
 }
 
 function displayWaterConsumptionToday(id) {
-  getCurrentDate(id)
-    .then(currentDate => calculateDailyFluidOunces(id, currentDate))
+  fetchHydrationData()
+    .then(hydrationData => {
+      return getCurrentDate(id).then(currentDate => {
+        if (currentDate) {
+          return calculateDailyFluidOunces(hydrationData, id, currentDate);
+        } else {
+          return "No data found for the specified user and date.";
+        }
+      });
+    })
     .then(waterConsumedToday => {
       if (waterConsumedToday !== undefined) {
-        waterConsumptionElement.innerText = `Water consumed today: ${waterConsumedToday}`;
+        waterConsumptionTodayElement.innerText = `${waterConsumedToday} ounces`;
       } else {
-        waterConsumptionElement.innerText = "Water consumed today: No data found for the specified user and date.";
+        waterConsumptionTodayElement.innerText = "No data found for the specified user and date.";
       }
     })
     .catch(error => console.error('Error displaying water consumption today:', error));
@@ -95,47 +110,32 @@ function displayWaterConsumptionToday(id) {
 function displayWaterConsumptionLatestWeek(id) {
   fetchHydrationData()
     .then(hydrationData => {
-      const userHydrationData = hydrationData.hydrationData.filter(data => data.userID === id);
-      if (!userHydrationData.length) {
-        waterConsumptionElement.innerText = "No data found for the specified user and date.";
-        return;
-      }
-
-      userHydrationData.sort((a, b) => new Date(b.date) - new Date(a.date));
-      const latestWeekDates = [];
-      const today = new Date(userHydrationData[0].date); 
-
-      for (let i = 0; i < 7; i++) {
-        const date = new Date(today);
-        date.setDate(today.getDate() - i);
-        const year = date.getFullYear();
-        let month = date.getMonth() + 1;
-        if(month < 10) {
-          month = '0' + month;
+      return getCurrentDate(id).then(currentDate => {
+        if (currentDate) {
+          return calculateWeeklyFluidOunces(hydrationData, id, currentDate);
+        } else {
+          return "Weekly data not available just yet! Check back soon.";
         }
-        let day = date.getDate(); 
-        if (day < 10) { 
-          day = "0" + day;
-        }
-        latestWeekDates.push(`${year}/${month}/${day}`);
+      });
+    })
+    .then(waterConsumedWeek => {
+      if (typeof waterConsumedWeek === 'string') {
+        waterConsumptionWeekElement.innerText = waterConsumedWeek;
+      } else if (Array.isArray(waterConsumedWeek)) {
+        let waterConsumptionText = '';
+        waterConsumedWeek.forEach((waterConsumed, index) => {
+          waterConsumptionText += `Day ${index + 1}: ${waterConsumed} ounces\n`;
+        });
+        waterConsumptionWeekElement.innerText = waterConsumptionText;
       }
-
-      let waterConsumptionText = '';
-      Promise.all(latestWeekDates.map(date => calculateDailyFluidOunces(id, date)))
-        .then(results => {
-          results.forEach((waterConsumed, index) => {
-            const date = latestWeekDates[index];
-            waterConsumptionText += `${date}: ${waterConsumed !== "No data found for the specified user and date." ? waterConsumed + ' ounces' : 'No data found'}\n`;
-          });
-          waterConsumptionElement.innerText = waterConsumptionText;
-        })
-        .catch(error => console.error('Error displaying water consumption latest week:', error));
-    });
+    })
+    .catch(error => console.error('Error displaying water consumption latest week:', error));
 }
 
 function displayAverageSleepHours(userID) {
-  getAverageHrs(userID)
-    .then(averageHrs => {
+  fetchSleepData()
+    .then(sleepData => {
+      const averageHrs = getAverageHrs(sleepData, userID);
       console.log(`Average sleep hours for user ${userID}: ${averageHrs}`);
       if (sleepAverageElement) {
         sleepAverageElement.innerText = `${averageHrs}`;
@@ -147,8 +147,9 @@ function displayAverageSleepHours(userID) {
 }
 
 function displayAverageSleepQuality(userID) {
-  getAverageQuality(userID)
-    .then(averageQuality => {
+  fetchSleepData()
+    .then(sleepData => {
+      const averageQuality = getAverageQuality(sleepData, userID);
       console.log(`Average sleep quality for user ${userID}: ${averageQuality}`);
       if (sleepQualityElement) {
         sleepQualityElement.innerText = `${averageQuality}`;
@@ -160,8 +161,9 @@ function displayAverageSleepQuality(userID) {
 }
 
 function displayDailySleepHours(userID, date) {
-  getDailyHrs(userID, date)
-    .then(sleepMessage => {
+  fetchSleepData()
+    .then(sleepData => {
+      const sleepMessage = getDailyHrs(sleepData, userID, date);
       console.log(`Daily sleep hours for user ${userID} on ${date}: ${sleepMessage}`);
       if (dailySleepHoursElement) {
         dailySleepHoursElement.innerText = sleepMessage;
@@ -173,8 +175,9 @@ function displayDailySleepHours(userID, date) {
 }
 
 function displayDailySleepQuality(userID, date) {
-  getDailyQuality(userID, date)
-    .then(qualityMessage => {
+  fetchSleepData()
+    .then(sleepData => {
+      const qualityMessage = getDailyQuality(sleepData, userID, date);
       console.log(`Daily sleep quality for user ${userID} on ${date}: ${qualityMessage}`);
       if (dailySleepQualityElement) {
         dailySleepQualityElement.innerText = qualityMessage;
@@ -188,6 +191,10 @@ function displayDailySleepQuality(userID, date) {
 addEventListener('load', displayRandomUser);
 
 export { getRandomIndex, displayRandomUser, displayStepGoal, displayWaterConsumptionToday };
+
+
+
+
 
 
 
