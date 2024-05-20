@@ -1,56 +1,78 @@
-// I need functions that return : 
-// avg hrs sleep per day, avg quality of sleep per day, 
-// access to sleep for a specific day, sleep quality for specific day, 
-// hrs of sleep per week, any week
-// sleep quality for a given week
+import { fetchSleepData } from './apiCalls.js';
 
-function getAverageHrs(userData) {
-    if (!userData.sleepData.length) {
-        return `No data available.`
-    } else {
-        const allSleepHrs = userData.sleepData.map((day) => day.hoursOfSleep)
-        const sleepAvg = allSleepHrs.reduce((total, hours) => total + hours, 0)
-        return sleepAvg / userData.sleepData.length
-    }
+function getAverageHrs(userID) {
+  return fetchSleepData()
+    .then(data => {
+      console.log("Fetched sleep data for average hours:", data);
+      const userData = data.sleepData.filter(d => d.userID === userID);
+      if (!userData.length) {
+        return `No data available.`;
+      } else {
+        const allSleepHrs = userData.map(day => day.hoursSlept);
+        const sleepAvg = allSleepHrs.reduce((total, hours) => total + hours, 0);
+        return (sleepAvg / userData.length).toFixed(2);
+      }
+    });
 }
 
-function getAverageQuality(userData) {
-    if (!userData.sleepData.length) {
-        return `No data available.`
-    } else {
-        const allSleepQuality = userData.sleepData.map((day) => day.qualityOfSleep)
-        const qualityAvg = allSleepQuality.reduce((total, hours) => total + hours, 0)
-        return qualityAvg / userData.sleepData.length
-    }
+function getAverageQuality(userID) {
+  return fetchSleepData()
+    .then(data => {
+      console.log("Fetched sleep data for average quality:", data);
+      const userData = data.sleepData.filter(d => d.userID === userID);
+      if (!userData.length) {
+        return `No data available.`;
+      } else {
+        const allSleepQuality = userData.map(day => day.sleepQuality);
+        const qualityAvg = allSleepQuality.reduce((total, quality) => total + quality, 0);
+        return (qualityAvg / userData.length).toFixed(2);
+      }
+    });
 }
 
-function getDailyHrs(userData, targetDate) {
-    if (!userData.sleepData.length) {
-        return `No data available.`
-    }
-    const specifiedSleep = userData.sleepData.find((day) => day.date === targetDate)
-    if (specifiedSleep) {
-        return `You slept ${specifiedSleep.hoursOfSleep} hours on ${specifiedSleep.date}.`
-    } else {
-        return `No data available for that date.`
-    }
+function getDailyHrs(userID, targetDate) {
+  return fetchSleepData()
+    .then(data => {
+      console.log("Fetched sleep data for daily hours:", data);
+      const userData = data.sleepData.filter(d => d.userID === userID);
+      if (!userData.length) {
+        return `No data available.`;
+      }
+      const specifiedSleep = userData.find((day) => day.date === targetDate);
+      if (specifiedSleep) {
+        return `You slept ${specifiedSleep.hoursSlept} hours on ${specifiedSleep.date}.`;
+      } else {
+        return `No data available for that date.`;
+      }
+    });
 }
 
-function getDailyQuality(userData, targetDate) {
-    if (!userData.sleepData.length) {
-        return 'No data available.'
-    }
-    const specifiedQuality = userData.sleepData.find((day) => day.date === targetDate)
-    if (specifiedQuality) {
-        return `You experienced a sleep quality of ${specifiedQuality.qualityOfSleep}.`
-    } else {
-        return 'No data available for that date.'
-    }
+function getDailyQuality(userID, targetDate) {
+  return fetchSleepData()
+    .then(data => {
+      console.log("Fetched sleep data for daily quality:", data);
+      const userData = data.sleepData.filter(d => d.userID === userID);
+      if (!userData.length) {
+        return 'No data available.';
+      }
+      const specifiedQuality = userData.find((day) => day.date === targetDate);
+      if (specifiedQuality) {
+        return `You experienced a sleep quality of ${specifiedQuality.sleepQuality} on ${specifiedQuality.date}.`;
+      } else {
+        return 'No data available for that date.';
+      }
+    });
 }
 
 export {
-    getAverageHrs,
-    getAverageQuality,
-    getDailyHrs,
-     getDailyQuality
-}
+  getAverageHrs,
+  getAverageQuality,
+  getDailyHrs,
+  getDailyQuality
+};
+
+
+
+
+
+

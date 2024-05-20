@@ -1,50 +1,38 @@
-import hydrationData from '../src/data/hydration.js';
+import { fetchHydrationData } from './apiCalls.js';
 
-function calculateAverageFluidOunces(id, hydrationDataObject) {
-    const hydrationData = hydrationDataObject.hydrationData;
-        if (!hydrationData.length){
-            return 0;
-        }
-    const userHydrationData = hydrationData.filter(data => data.userID === id);
-        if (!userHydrationData.length){
-            return 0;
-        }
-    const totalFluidOunces = userHydrationData.reduce((total, data) => total + data.numOunces, 0);
-    const averageFluidOunces = totalFluidOunces / userHydrationData.length;
-    return averageFluidOunces;
+function calculateAverageFluidOunces(id) {
+  return fetchHydrationData()
+    .then(data => {
+      const hydrationData = data.hydrationData.filter(d => d.userID === id);
+      if (hydrationData.length === 0) {
+        return 0;
+      }
+      const totalFluidOunces = hydrationData.reduce((total, data) => total + data.numOunces, 0);
+      return totalFluidOunces / hydrationData.length;
+    });
 }
 
-console.log(`Average fluid ounces for yourself:`, calculateAverageFluidOunces(1, hydrationData));
-
-
-function calculateDailyFluidOunces(userID, date, hydrationDataObject) {
-    const hydrationData = hydrationDataObject.hydrationData;
-    const userHydrationData = hydrationData.filter(data => data.userID === userID && data.date === date);
-    if (!userHydrationData.length) {
+function calculateDailyFluidOunces(userID, date) {
+  return fetchHydrationData()
+    .then(data => {
+      const hydrationData = data.hydrationData.filter(d => d.userID === userID && d.date === date);
+      if (hydrationData.length === 0) {
         return "No data found for the specified user and date.";
-    }
-    const totalFluidOunces = userHydrationData.reduce((total, data) => total + data.numOunces, 0);
-    return totalFluidOunces;
-}
-console.log(`Fluid ounces for user 1 on 2023/03/24:`, calculateDailyFluidOunces(1, '2023/03/24', hydrationData));
-
-
-// Return how many fluid ounces of water a user consumed each day over the course of a week (7 days)
-function calculateWeeklyFluidOunces(id, startDate, hydrationDataObject){
-    const hydrationData = hydrationDataObject.hydrationData;
-    const userHydrationData = hydrationData.filter(data => data.userID === id && data.date >= startDate)
-    if (!userHydrationData.length) {
-        return 'No data found.'
-    } else if (userHydrationData.length < 7) {
-        return `Weekly data not available just yet! Check back soon`
-    } else {
-        const weeklyFluidOunces = userHydrationData.slice(0, 7).map(data => data.numOunces)
-        return weeklyFluidOunces;
-    }
+      }
+      return hydrationData.reduce((total, d) => total + d.numOunces, 0);
+    });
 }
 
-console.log('WeeklyFluidOuncesForUser1:', calculateWeeklyFluidOunces(1, '2023/03/01', hydrationData))
+function calculateWeeklyFluidOunces(id, startDate) {
+  return fetchHydrationData()
+    .then(data => {
+      const hydrationData = data.hydrationData.filter(d => d.userID === id && new Date(d.date) >= new Date(startDate));
+      if (hydrationData.length < 7) {
+        return `Weekly data not available just yet! Check back soon`;
+      }
+      return hydrationData.slice(0, 7).map(d => d.numOunces);
+    });
+}
 
 export { calculateAverageFluidOunces, calculateDailyFluidOunces, calculateWeeklyFluidOunces };
-
 
