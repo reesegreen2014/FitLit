@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Borel&family=Caveat:wght@400..700&family=Foldit:wght@100..900&family=Itim&display=swap" rel="stylesheet">
     <title>🤾 Fit Lit ⛹️‍♀️</title>
+    <link rel="stylesheet" href="styles.css"> 
 </head>
 <body>
     <div class="welcome-overlay">
@@ -22,28 +23,27 @@
         </section>
         <h2 class="dataDashboard">Your Data Dashboard:</h2>
         <div class="userData">
-        <section id="stepGoalComparison" class="box">
-            <h2>Your step goal compared to the average:</h2><span id="stepGoalComparisonResult"></span></p>
-        </section>
-        <section id="waterConsumption" class="box">
-            <h2>Your Water Consumption:</h2>
-            <p id="waterConsumptionText"></p>
-            <button id="toggleButton">Show Weekly Data</button>
-        </section>
-        <section id="sleepAverage" class="box">
-            <h2>Your Sleep Data:</h2>
-            <p>Average hours of sleep: <span id="sleepAverageResult"></span></p>
-            <p>Daily hours of sleep: <span id="dailySleepHoursResult"></span></p>
-        </section>
-        <section id="sleepQuality" class="box">
-            <h2>Your Sleep Quality:</h2>
-            <p>Average sleep quality: <span id="sleepQualityResult"></span></p>
-            <p>Daily sleep quality: <span id="dailySleepQualityResult"></span></p>
-        </section>
+            <section id="stepGoalComparison" class="box">
+                <h2>Your step goal compared to the average:</h2><span id="stepGoalComparisonResult"></span></p>
+            </section>
+            <section id="waterConsumption" class="box">
+                <h2>Your Water Consumption:</h2>
+                <p id="waterConsumptionToday"></p> 
+                <p id="waterConsumptionWeek"></p> 
+            </section>
+            <section id="sleepAverage" class="box">
+                <h2>Your Sleep Data:</h2>
+                <p>Average hours of sleep: <span id="sleepAverageResult"></span></p>
+                <p>Daily hours of sleep: <span id="dailySleepHoursResult"></span></p>
+            </section>
+            <section id="sleepQuality" class="box">
+                <h2>Your Sleep Quality:</h2>
+                <p>Average sleep quality: <span id="sleepQualityResult"></span></p>
+                <p>Daily sleep quality: <span id="dailySleepQualityResult"></span></p>
+            </section>
         </div>
     </main>
-    <script src="bundle.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <script src="bundle.js"></script> 
 </body>
 </html>
 

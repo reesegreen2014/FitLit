@@ -115,12 +115,15 @@ main {
   text-align: center;
 }
 
+#waterConsumptionWeek {
+  text-align: center;
+}
+
 #userInfo {
   text-align: center;
   margin-top: 2rem;
   background-color: #b2adad6a;
 }
-
 
 .userData {
   display: grid;
@@ -146,9 +149,10 @@ main {
   font-size: 2em; 
   color: #333; 
   text-align: center; 
-  margin: 25px 0 10px 0; /* Centered and with a bit more spacing */
+  margin: 25px 0 10px 0; 
 }
 
+/* Overlay styling */
 .welcome-overlay {
   position: fixed;
   top: 0;
@@ -163,7 +167,7 @@ main {
 }
 
 .welcome-overlay .welcome-message {
-  font-family: 'Caveat', cursive;
+  font-family: 'Caveat', ;
   font-size: 3em;
   color: #333;
   white-space: nowrap;
