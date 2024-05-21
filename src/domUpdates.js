@@ -99,7 +99,7 @@ function displayWaterConsumptionToday(id) {
     })
     .then(waterConsumedToday => {
       if (waterConsumedToday !== undefined) {
-        waterConsumptionTodayElement.innerText = `${waterConsumedToday} ounces`;
+        waterConsumptionTodayElement.innerText = `Water Consumed Today: ${waterConsumedToday} ounces`;
       } else {
         waterConsumptionTodayElement.innerText = "No data found for the specified user and date.";
       }
@@ -122,7 +122,7 @@ function displayWaterConsumptionLatestWeek(id) {
       if (typeof waterConsumedWeek === 'string') {
         waterConsumptionWeekElement.innerText = waterConsumedWeek;
       } else if (Array.isArray(waterConsumedWeek)) {
-        let waterConsumptionText = '';
+        let waterConsumptionText = 'Weekly Water Consumption:\n';
         waterConsumedWeek.forEach((waterConsumed, index) => {
           waterConsumptionText += `Day ${index + 1}: ${waterConsumed} ounces\n`;
         });
@@ -188,11 +188,16 @@ function displayDailySleepQuality(userID, date) {
     .catch(error => console.error('Error displaying daily sleep quality:', error));
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+  const welcomeOverlay = document.querySelector('.welcome-overlay');
+  setTimeout(() => {
+    welcomeOverlay.classList.add('fade-out');
+  }, 6000); 
+});
+
 addEventListener('load', displayRandomUser);
 
 export { getRandomIndex, displayRandomUser, displayStepGoal, displayWaterConsumptionToday };
-
-
 
 
 
