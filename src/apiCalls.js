@@ -1,3 +1,7 @@
+// apiCalls.js
+
+// apiCalls.js
+
 function fetchUsers() {
     return fetch('https://fitlit-api.herokuapp.com/api/v1/users')
       .then(response => response.json())
@@ -47,6 +51,8 @@ function fetchUsers() {
   }
   
   export { fetchActivityData, fetchUsers, fetchHydrationData, fetchSleepData };
+  
+  
   
 //console.log('I will be a fetch request!')
 

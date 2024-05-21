@@ -5,29 +5,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Borel&family=Caveat:wght@400..700&family=Foldit:wght@100..900&family=Itim&display=swap" rel="stylesheet">
     <title>🤾 Fit Lit ⛹️‍♀️</title>
-    <link rel="stylesheet" href="./src/css.css">
+    <link rel="stylesheet" href="styles.css"> 
 </head>
 <body>
+    <div class="welcome-overlay">
+        <span class="welcome-message">Welcome to the Activity Tracker. Fetching your data now . . .</span>
+    </div>
     <header>
         <h1 class="h1-header">Activity Tracker</h1>
         <h2 class="welcome-message">Welcome, <span class="userFirstName"></span>!</h2>
     </header>
     <main>
         <section id="userInfo" class="box">
-            <!-- This will show the user all of their info -->
         </section>
         <section id="stepGoalComparison" class="box">
             <p>Your step goal compared to the average: <span id="stepGoalComparisonResult"></span></p>
         </section>
-<<<<<<< HEAD
         <section id="waterConsumption" class="box"><span class="waterConsumptionHeader">Your Water Consumption Data:</span>
             <p id="waterConsumptionText"></p>
             <button id="toggleButton">Show Weekly Data</button>
         </section>
     </main>
     <script src="bundle.js"></script>
-=======
+
     </main>
     <main>
         <section id="waterConsumption">
@@ -46,8 +50,30 @@
     </main>
     <script src="bundle.js"></script>
     <link rel="stylesheet" href="styles.css">
->>>>>>> 384f5d1f793082e2338c4cc79422a75428dde46a
+        </section>
+        <h2 class="dataDashboard">Your Data Dashboard:</h2>
+        <div class="userData">
+            <section id="stepGoalComparison" class="box">
+                <h2>Your step goal compared to the average:</h2><span id="stepGoalComparisonResult"></span></p>
+            </section>
+            <section id="waterConsumption" class="box">
+                <h2>Your Water Consumption:</h2>
+                <p id="waterConsumptionToday"></p> 
+                <p id="waterConsumptionWeek"></p> 
+            </section>
+            <section id="sleepAverage" class="box">
+                <h2>Your Sleep Data:</h2>
+                <p>Average hours of sleep: <span id="sleepAverageResult"></span></p>
+                <p>Daily hours of sleep: <span id="dailySleepHoursResult"></span></p>
+            </section>
+            <section id="sleepQuality" class="box">
+                <h2>Your Sleep Quality:</h2>
+                <p>Average sleep quality: <span id="sleepQualityResult"></span></p>
+                <p>Daily sleep quality: <span id="dailySleepQualityResult"></span></p>
+            </section>
+        </div>
+    </main>
+    <script src="bundle.js"></script> 
 </body>
 </html>
-
 
