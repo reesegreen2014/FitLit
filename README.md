@@ -32,7 +32,7 @@ FitLit is an activity tracker that helps you monitor various aspects of your dai
 
 ## Screenshots/GIFs
 
-![GIF of Application](FitLit/src/images/Screen Recording 2024-05-20 at 7.13.52 PM.gif)
+![Application](FitLit/src/images/Screen Recording 2024-05-20 at 7.13.52 PM.gif)
 
 ## Contributors
 
