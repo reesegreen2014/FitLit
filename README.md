@@ -37,7 +37,9 @@ FitLit is an activity tracker that helps you monitor various aspects of your dai
 ## Contributors
 
 **Reese Green reesegreen2014@me.com [Github](https://github.com/reesegreen2014 )**
+
 **Kyle Boomer kylemboomer@gmail.com [Github](https://github.com/KyleMBoomer)**
+
 **Kevin Nelson kmnelson23@gmail.com [Github](https://github.com/kevinm23nelson)**
 
 ## Installation
