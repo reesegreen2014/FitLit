@@ -78,7 +78,6 @@ function getCurrentDate(id) {
       if (userHydrationData.length) {
         userHydrationData.sort((a, b) => new Date(b.date) - new Date(a.date));
         const mostRecentDate = userHydrationData[0].date; 
-        console.log(`Most recent date for user ${id}: ${mostRecentDate}`);
         return mostRecentDate;
       } else {
         return null;
