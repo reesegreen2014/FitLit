@@ -45,6 +45,8 @@ function getAverageHrs(data, userID) {
       return 'No data available for that date.';
     }
   }
+
+  
   
   export {
     getAverageHrs,
