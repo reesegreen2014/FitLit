@@ -1,14 +1,9 @@
 import { assert, expect } from 'chai';
 const { getUserData, calculateAverageStepGoal } = require('../src/userData.js');
 
-describe('User Repository', () => {
-  it('should run tests', function () {
-    expect(true).to.equal(true);
-  });
-});
-
 describe('user ID function', function () {
   let user1, user2, user3, userArray;
+  
   beforeEach(function () {
     user1 = {
       "id": 1,
@@ -17,12 +12,7 @@ describe('user ID function', function () {
       "email": "Taurean_Pollich31@gmail.com",
       "strideLength": 4,
       "dailyStepGoal": 7000,
-      "friends": [
-        5,
-        43,
-        46,
-        11
-      ]
+      "friends": [5, 43, 46, 11]
     };
     user2 = {
       "id": 25,
@@ -31,13 +21,7 @@ describe('user ID function', function () {
       "email": "Jermey4@gmail.com",
       "strideLength": 4,
       "dailyStepGoal": 6000,
-      "friends": [
-        21,
-        46,
-        47,
-        19,
-        41
-      ]
+      "friends": [21, 46, 47, 19, 41]
     };
     user3 = {
       "id": 50,
@@ -46,11 +30,7 @@ describe('user ID function', function () {
       "email": "Amy19@yahoo.com",
       "strideLength": 4.5,
       "dailyStepGoal": 10000,
-      "friends": [
-        46,
-        48,
-        12
-      ]
+      "friends": [46, 48, 12]
     };
     userArray = [user1, user2, user3];
   });
@@ -69,35 +49,19 @@ describe('user ID function', function () {
   });
 
   it('should handle invalid IDs', () => {
-    try {
-      getUserData(userArray, 'invalid_id');
-    } catch (error) {
-      expect(error.message).to.equal('Invalid ID');
-    }
+    expect(() => getUserData(userArray, 'invalid_id')).to.throw('Invalid ID');
   });
 
   it('should handle non-existent ID', () => {
-    try {
-      getUserData(userArray, 100);
-    } catch (error) {
-      expect(error.message).to.equal('Invalid ID');
-    }
+    expect(() => getUserData(userArray, 100)).to.throw('Invalid ID');
   });
 
   it('should handle negative IDs', () => {
-    try {
-      getUserData(userArray, -1);
-    } catch (error) {
-      expect(error.message).to.equal('Invalid ID');
-    }
+    expect(() => getUserData(userArray, -1)).to.throw('Invalid ID');
   });
 
   it('should handle special characters in IDs', () => {
-    try {
-      getUserData(userArray, '!@#$%');
-    } catch (error) {
-      expect(error.message).to.equal('Invalid ID');
-    }
+    expect(() => getUserData(userArray, '!@#$%')).to.throw('Invalid ID');
   });
 
   it('should test if the id is a number', () => {
@@ -106,16 +70,13 @@ describe('user ID function', function () {
   });
 
   it('should return an error if the id is not a number', () => {
-    try {
-      getUserData(userArray, 'abc');
-    } catch (error) {
-      expect(error.message).to.equal('Invalid ID');
-    }
+    expect(() => getUserData(userArray, 'abc')).to.throw('Invalid ID');
   });
 });
 
 describe('getAverageStepGoal', () => {
   let activityData;
+  
   beforeEach(function () {
     activityData = [
       { "numSteps": 7000 },
@@ -142,12 +103,6 @@ describe('getAverageStepGoal', () => {
 
   it('should handle invalid step goals', () => {
     activityData.push({ "numSteps": -1000 });
-    try {
-      calculateAverageStepGoal(activityData);
-    } catch (error) {
-      expect(error.message).to.equal('Invalid Step Goal');
-    }
+    expect(() => calculateAverageStepGoal(activityData)).to.throw('Invalid Step Goal');
   });
 });
-
-
