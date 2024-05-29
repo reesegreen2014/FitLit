@@ -46,24 +46,25 @@ function getAverageHrs(data, userID) {
     }
   }
 
-  // function getRecentSleep(userData) {
-  //   const sortedSleep = userData.sort((a,b) => new Date(b.date) - new Date(a.date))
-  //   const mostRecentSleep = sortedSleep.slice(0,7)
-  //   return mostRecentSleep.map(week => {
-  //     return {
-  //       date: week.date, 
-  //       hoursSlept: week.hoursSlept, 
-  //       sleepQuality: week.sleepQuality
-  //     }
-  //   })
-  // }
+  function getRecentSleep(userData) {
+    const sortedSleep = userData.sleepData.sort((a,b) => new Date(b.date) - new Date(a.date))
+    console.log('sorted', sortedSleep)
+    const mostRecentSleep = sortedSleep.slice(0,7)
+    return mostRecentSleep.map(week => {
+      return {
+        date: week.date, 
+        hoursSlept: week.hoursSlept, 
+        sleepQuality: week.sleepQuality
+      }
+    })
+  }
   
   export {
     getAverageHrs,
     getAverageQuality,
     getDailyHrs,
     getDailyQuality, 
-    // getRecentSleep
+    getRecentSleep
   };
   
 

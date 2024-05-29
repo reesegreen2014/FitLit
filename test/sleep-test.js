@@ -1,5 +1,5 @@
 import { assert, expect } from 'chai';
-const { getAverageHrs, getAverageQuality, getDailyHrs, getDailyQuality } = require('../src/sleep.js');
+const { getAverageHrs, getAverageQuality, getDailyHrs, getDailyQuality, getRecentSleep } = require('../src/sleep.js');
 
 let sleepData;
 
@@ -129,3 +129,19 @@ describe('Get Daily Sleep Quality', function () {
     expect(specifiedQuality).to.equal('No data available.');
   });
 });
+
+describe('Get Most Recent Sleep Data', function() {
+  it('should return most recent week of sleep data', () => {
+    const weekOfSleep = getRecentSleep(sleepData)
+    const recentSleep = [
+          { date: '2023/03/30', hoursSlept: 7, sleepQuality: 9.1 },
+          { date: '2023/03/29', hoursSlept: 6, sleepQuality: 3.1 },
+          { date: '2023/03/28', hoursSlept: 7, sleepQuality: 3.8 },
+          { date: '2023/03/27', hoursSlept: 8, sleepQuality: 4.7 },
+          { date: '2023/03/26', hoursSlept: 7, sleepQuality: 5 },
+          { date: '2023/03/25', hoursSlept: 7, sleepQuality: 3.8 },
+          { date: '2023/03/24', hoursSlept: 7, sleepQuality: 4.7 }
+    ]
+    expect(weekOfSleep).to.deep.equal(recentSleep)
+  })
+})
