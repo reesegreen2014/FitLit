@@ -1,11 +1,7 @@
-// domUpdates.js
-
-// domUpdates.js
-
 import { getUserData, calculateAverageStepGoal } from './userData.js';
 import { calculateDailyFluidOunces, calculateWeeklyFluidOunces } from './hydrationData.js';
 import { fetchUsers, fetchHydrationData, fetchSleepData, fetchActivityData } from './apiCalls.js';
-import { getAverageHrs, getAverageQuality, getDailyHrs, getDailyQuality } from './sleep.js';
+import { getAverageHrs, getAverageQuality, getDailyHrs, getDailyQuality, getRecentSleep } from './sleep.js';
 
 const userInfo = document.querySelector('#userInfo');
 const userName = document.querySelector('.userFirstName');
@@ -16,6 +12,7 @@ const sleepAverageElement = document.querySelector('#sleepAverageResult');
 const sleepQualityElement = document.querySelector('#sleepQualityResult');
 const dailySleepHoursElement = document.querySelector('#dailySleepHoursResult');
 const dailySleepQualityElement = document.querySelector('#dailySleepQualityResult');
+const weeklySleepDataElement = document.querySelector('#weeklySleepDataResult');
 
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
@@ -25,23 +22,23 @@ function displayRandomUser() {
   fetchUsers()
     .then(users => {
       const randomIndex = getRandomIndex(users);
-      const { id, strideLength, dailyStepGoal, friends, name } = users[randomIndex];
-      userInfo.innerHTML = `Your information: 
-        <p>ID: ${id}</p>
-        <p>Stride Length: ${strideLength}</p>
-        <p>Daily Step Goal: ${dailyStepGoal}</p>
-        <p>Friends: ${getFriendsNames(friends, users)}</p>`;
+      const user = users[randomIndex];
+      const { id, strideLength, dailyStepGoal, friends, name } = user;
+      userInfo.innerHTML = `<h2>Your information:</h2>
+        <p><h4>Stride Length:</h4> ${strideLength}</p>
+        <p><h4>Daily Step Goal:</h4> ${dailyStepGoal}</p>
+        <p><h4>Friends:</h4> ${getFriendsNames(friends, users)}</p>`;
       userName.innerText = `${name}`;
-      displayStepGoal(users);
+      displayStepGoal(user);
       displayWaterConsumptionToday(id);
       displayWaterConsumptionLatestWeek(id);
       displayAverageSleepHours(id);
       displayAverageSleepQuality(id);
       getCurrentDate(id).then(date => {
-        console.log(`Displaying daily sleep data for user ${id} on date ${date}`);
         displayDailySleepHours(id, date);
         displayDailySleepQuality(id, date);
       });
+      displayRecentSleep(id);  // Added to display weekly sleep data
     })
     .catch(error => console.error('Error displaying random user:', error));
 }
@@ -54,12 +51,11 @@ function getFriendsNames(friendsIds, users) {
   return friends.map((friend) => friend.name).join(', ');
 }
 
-function displayStepGoal(users) {
+function displayStepGoal(user) {
   fetchActivityData()
     .then(activityData => {
       const averageStepGoal = calculateAverageStepGoal(activityData);
-      const randomUser = getRandomIndex(users);
-      const userStepGoal = users[randomUser].dailyStepGoal;
+      const userStepGoal = user.dailyStepGoal;
       let comparisonMessage = "";
       if (userStepGoal > averageStepGoal) {
         comparisonMessage = "higher";
@@ -99,9 +95,9 @@ function displayWaterConsumptionToday(id) {
     })
     .then(waterConsumedToday => {
       if (waterConsumedToday !== undefined) {
-        waterConsumptionTodayElement.innerText = `Water Consumed Today: ${waterConsumedToday} ounces`;
+        waterConsumptionTodayElement.innerHTML = `<h3>Water Consumed Today:</h3><p>${waterConsumedToday} ounces</p>`;
       } else {
-        waterConsumptionTodayElement.innerText = "No data found for the specified user and date.";
+        waterConsumptionTodayElement.innerHTML = "<h3>Water Consumed Today:</h3><p>No data found for the specified user and date.</p>";
       }
     })
     .catch(error => console.error('Error displaying water consumption today:', error));
@@ -112,22 +108,23 @@ function displayWaterConsumptionLatestWeek(id) {
     .then(hydrationData => {
       return getCurrentDate(id).then(currentDate => {
         if (currentDate) {
-          return calculateWeeklyFluidOunces(hydrationData, id, currentDate);
+          const weeklyOunces = calculateWeeklyFluidOunces(hydrationData, id, currentDate);
+          if (typeof weeklyOunces === 'string') {
+            waterConsumptionWeekElement.innerHTML = `<h3>Weekly Water Consumption:</h3><p>${weeklyOunces}</p>`;
+          } else {
+            let waterConsumptionText = '<h3>Weekly Water Consumption:</h3>';
+            weeklyOunces.forEach((ounces, index) => {
+              const dayDate = new Date(currentDate);
+              dayDate.setDate(dayDate.getDate() - 6 + index);
+              const formattedDate = dayDate.toDateString();
+              waterConsumptionText += `<p>${formattedDate}: ${ounces} ounces</p>`;
+            });
+            waterConsumptionWeekElement.innerHTML = waterConsumptionText;
+          }
         } else {
-          return "Weekly data not available just yet! Check back soon.";
+          waterConsumptionWeekElement.innerHTML = "<h3>Weekly Water Consumption:</h3><p>Weekly data not available just yet! Check back soon.</p>";
         }
       });
-    })
-    .then(waterConsumedWeek => {
-      if (typeof waterConsumedWeek === 'string') {
-        waterConsumptionWeekElement.innerText = waterConsumedWeek;
-      } else if (Array.isArray(waterConsumedWeek)) {
-        let waterConsumptionText = 'Weekly Water Consumption:\n';
-        waterConsumedWeek.forEach((waterConsumed, index) => {
-          waterConsumptionText += `Day ${index + 1}: ${waterConsumed} ounces\n`;
-        });
-        waterConsumptionWeekElement.innerText = waterConsumptionText;
-      }
     })
     .catch(error => console.error('Error displaying water consumption latest week:', error));
 }
@@ -188,6 +185,32 @@ function displayDailySleepQuality(userID, date) {
     .catch(error => console.error('Error displaying daily sleep quality:', error));
 }
 
+function displayRecentSleep(userID) {
+  fetchSleepData()
+    .then(sleepData => {
+      if (!sleepData || sleepData === 'No data available') {
+        weeklySleepDataElement.innerText = 'No data available.'
+        return
+      }
+      const recentSleep = getRecentSleep({sleepData: sleepData.sleepData, userID: userID});
+      if (recentSleep.length === 0) {
+        weeklySleepDataElement.innerHTML = 'No recent sleep data available.';
+        return;
+      }
+      weeklySleepDataElement.innerHTML = recentSleep.map(sleep => `
+        <div class="sleep-entry">
+          <p>Date: ${sleep.date}</p>
+          <p>Hours Slept: ${sleep.hoursSlept}</p>
+          <p>Sleep Quality: ${sleep.sleepQuality}</p>
+        </div>
+      `).join('');
+    })
+    .catch(error => {
+      weeklySleepDataElement.innerText = 'Error loading data';
+      console.error('Error processing data', error);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const welcomeOverlay = document.querySelector('.welcome-overlay');
   setTimeout(() => {
@@ -197,10 +220,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 addEventListener('load', displayRandomUser);
 
-export { getRandomIndex, displayRandomUser, displayStepGoal, displayWaterConsumptionToday };
-
-
-
-
-
-
+export { getRandomIndex, displayRandomUser, displayStepGoal, displayWaterConsumptionToday, displayRecentSleep };
