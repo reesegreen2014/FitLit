@@ -174,6 +174,7 @@ describe('Get Most Recent Sleep Data', function() {
       }
     ]
   }
+  
     const expectedSleepData = [
       { date: '2023/03/26', hoursSlept: 7, sleepQuality: 5 },
       { date: '2023/03/25', hoursSlept: 7, sleepQuality: 3.8 },
@@ -183,6 +184,4 @@ describe('Get Most Recent Sleep Data', function() {
       const lessThanWeekOfSleep = getRecentSleep(sleepData) 
     expect(lessThanWeekOfSleep).to.deep.equal(expectedSleepData)
   })
-
-  
 })
