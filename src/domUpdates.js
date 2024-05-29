@@ -1,4 +1,3 @@
-// domUpdates.js
 import { getUserData, calculateAverageStepGoal } from './userData.js';
 import { calculateDailyFluidOunces, calculateWeeklyFluidOunces } from './hydrationData.js';
 import { fetchUsers, fetchHydrationData, fetchSleepData, fetchActivityData } from './apiCalls.js';
@@ -94,9 +93,9 @@ function displayWaterConsumptionToday(id) {
     })
     .then(waterConsumedToday => {
       if (waterConsumedToday !== undefined) {
-        waterConsumptionTodayElement.innerText = `Water Consumed Today: ${waterConsumedToday} ounces`;
+        waterConsumptionTodayElement.innerHTML = `<h3>Water Consumed Today:</h3><p>${waterConsumedToday} ounces</p>`;
       } else {
-        waterConsumptionTodayElement.innerText = "No data found for the specified user and date.";
+        waterConsumptionTodayElement.innerHTML = "<h3>Water Consumed Today:</h3><p>No data found for the specified user and date.</p>";
       }
     })
     .catch(error => console.error('Error displaying water consumption today:', error));
@@ -109,23 +108,19 @@ function displayWaterConsumptionLatestWeek(id) {
         if (currentDate) {
           const weeklyOunces = calculateWeeklyFluidOunces(hydrationData, id, currentDate);
           if (typeof weeklyOunces === 'string') {
-            waterConsumptionWeekElement.innerText = weeklyOunces;
+            waterConsumptionWeekElement.innerHTML = `<h3>Weekly Water Consumption:</h3><p>${weeklyOunces}</p>`;
           } else {
-            let waterConsumptionText = 'Weekly Water Consumption:\n';
-            const endDate = new Date(currentDate);
-            const startDate = new Date(endDate);
-            startDate.setDate(endDate.getDate() - 6);
-            const weeklyData = hydrationData.hydrationData.filter(d => {
-              const date = new Date(d.date);
-              return d.userID === id && date >= startDate && date <= endDate;
-            }).sort((a, b) => new Date(a.date) - new Date(b.date));
-            weeklyData.forEach((dayData, index) => {
-              waterConsumptionText += `${dayData.date}: ${weeklyOunces[index]} ounces\n`;
+            let waterConsumptionText = '<h3>Weekly Water Consumption:</h3>';
+            weeklyOunces.forEach((ounces, index) => {
+              const dayDate = new Date(currentDate);
+              dayDate.setDate(dayDate.getDate() - 6 + index);
+              const formattedDate = dayDate.toDateString();
+              waterConsumptionText += `<p>${formattedDate}: ${ounces} ounces</p>`;
             });
-            waterConsumptionWeekElement.innerText = waterConsumptionText;
+            waterConsumptionWeekElement.innerHTML = waterConsumptionText;
           }
         } else {
-          waterConsumptionWeekElement.innerText = "Weekly data not available just yet! Check back soon.";
+          waterConsumptionWeekElement.innerHTML = "<h3>Weekly Water Consumption:</h3><p>Weekly data not available just yet! Check back soon.</p>";
         }
       });
     })
@@ -198,10 +193,3 @@ document.addEventListener('DOMContentLoaded', () => {
 addEventListener('load', displayRandomUser);
 
 export { getRandomIndex, displayRandomUser, displayStepGoal, displayWaterConsumptionToday };
-
-
-
-
-
-
-
