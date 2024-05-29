@@ -19,10 +19,6 @@ function calculateDailyFluidOunces(data, userID, date) {
 }
 
 function calculateWeeklyFluidOunces(data, id, endDate) {
-  if (!data || !data.hydrationData) {
-    throw new Error("Invalid data: " + JSON.stringify(data));
-  }
-
   const end = new Date(endDate);
   const start = new Date(end);
   start.setDate(end.getDate() - 6);
