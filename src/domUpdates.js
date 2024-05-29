@@ -22,21 +22,21 @@ function displayRandomUser() {
   fetchUsers()
     .then(users => {
       const randomIndex = getRandomIndex(users);
-      const { id, strideLength, dailyStepGoal, friends, name } = users[randomIndex];
+      const user = users[randomIndex];
+      const { id, strideLength, dailyStepGoal, friends, name } = user;
       userInfo.innerHTML = `<h2>Your information:</h2>
         <p><h4>Stride Length:</h4> ${strideLength}</p>
         <p><h4>Daily Step Goal:</h4> ${dailyStepGoal}</p>
         <p><h4>Friends:</h4> ${getFriendsNames(friends, users)}</p>`;
       userName.innerText = `${name}`;
-      displayStepGoal(users);
+      displayStepGoal(user);
       displayWaterConsumptionToday(id);
       displayWaterConsumptionLatestWeek(id);
       displayAverageSleepHours(id);
       displayAverageSleepQuality(id);
       getCurrentDate(id).then(date => {
-        console.log(`Displaying daily sleep data for user ${id} on date ${date}`);
-        displayDailySleepHours(id, date);
-        displayDailySleepQuality(id, date);
+      displayDailySleepHours(id, date);
+      displayDailySleepQuality(id, date);
       });
     })
     .catch(error => console.error('Error displaying random user:', error));
@@ -50,12 +50,11 @@ function getFriendsNames(friendsIds, users) {
   return friends.map((friend) => friend.name).join(', ');
 }
 
-function displayStepGoal(users) {
+function displayStepGoal(user) {
   fetchActivityData()
     .then(activityData => {
       const averageStepGoal = calculateAverageStepGoal(activityData);
-      const randomUser = getRandomIndex(users);
-      const userStepGoal = users[randomUser].dailyStepGoal;
+      const userStepGoal = user.dailyStepGoal;
       let comparisonMessage = "";
       if (userStepGoal > averageStepGoal) {
         comparisonMessage = "higher";
@@ -132,8 +131,6 @@ function displayWaterConsumptionLatestWeek(id) {
     })
     .catch(error => console.error('Error displaying water consumption latest week:', error));
 }
-
-
 
 function displayAverageSleepHours(userID) {
   fetchSleepData()
