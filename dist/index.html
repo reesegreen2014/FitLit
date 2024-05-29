@@ -35,6 +35,15 @@
                 <h2>Your Sleep Data:</h2>
                 <p>Average hours of sleep: <span id="sleepAverageResult"></span></p>
                 <p>Daily hours of sleep: <span id="dailySleepHoursResult"></span></p>
+                <button id="log-sleep-data">Log Your Own Data!</button>
+                <form id="sleepDataForm" class="hidden">
+                    <h3>Log Your Sleep Data!</h3>
+                    <label for="date">Date</label><br>
+                    <input type="date" id="date"><br>
+                    <label for="lname">How many hours did you sleep?</label><br>
+                    <input type="text" id="hours-slept"><br><br>
+                    <input type="submit" value="Submit">
+                </form> 
             </section>
             <section id="sleepQuality" class="box">
                 <h2>Your Sleep Quality:</h2>
@@ -46,4 +55,3 @@
     <script src="bundle.js"></script> 
 </body>
 </html>
-
