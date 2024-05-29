@@ -2,7 +2,7 @@
 import { getUserData, calculateAverageStepGoal } from './userData.js';
 import { calculateDailyFluidOunces, calculateWeeklyFluidOunces } from './hydrationData.js';
 import { fetchUsers, fetchHydrationData, fetchSleepData, fetchActivityData } from './apiCalls.js';
-import { getAverageHrs, getAverageQuality, getDailyHrs, getDailyQuality } from './sleep.js';
+import { getAverageHrs, getAverageQuality, getDailyHrs, getDailyQuality, getRecentSleep } from './sleep.js';
 
 const userInfo = document.querySelector('#userInfo');
 const userName = document.querySelector('.userFirstName');
@@ -13,6 +13,7 @@ const sleepAverageElement = document.querySelector('#sleepAverageResult');
 const sleepQualityElement = document.querySelector('#sleepQualityResult');
 const dailySleepHoursElement = document.querySelector('#dailySleepHoursResult');
 const dailySleepQualityElement = document.querySelector('#dailySleepQualityResult');
+const weeklySleepData = document.querySelector('#weeklySleepDataResult')
 
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
@@ -35,8 +36,9 @@ function displayRandomUser() {
       displayAverageSleepHours(id);
       displayAverageSleepQuality(id);
       getCurrentDate(id).then(date => {
-      displayDailySleepHours(id, date);
-      displayDailySleepQuality(id, date);
+        displayDailySleepHours(id, date);
+        displayDailySleepQuality(id, date);
+        displayRecentSleep()
       });
     })
     .catch(error => console.error('Error displaying random user:', error));
@@ -72,8 +74,7 @@ function getCurrentDate(id) {
       const userHydrationData = hydrationData.hydrationData.filter(data => data.userID === id);
       if (userHydrationData.length) {
         userHydrationData.sort((a, b) => new Date(b.date) - new Date(a.date));
-        const mostRecentDate = userHydrationData[0].date; 
-        console.log(`Most recent date for user ${id}: ${mostRecentDate}`);
+        const mostRecentDate = userHydrationData[0].date;
         return mostRecentDate;
       } else {
         return null;
@@ -136,7 +137,6 @@ function displayAverageSleepHours(userID) {
   fetchSleepData()
     .then(sleepData => {
       const averageHrs = getAverageHrs(sleepData, userID);
-      console.log(`Average sleep hours for user ${userID}: ${averageHrs}`);
       if (sleepAverageElement) {
         sleepAverageElement.innerText = `${averageHrs}`;
       } else {
@@ -164,7 +164,6 @@ function displayDailySleepHours(userID, date) {
   fetchSleepData()
     .then(sleepData => {
       const sleepMessage = getDailyHrs(sleepData, userID, date);
-      console.log(`Daily sleep hours for user ${userID} on ${date}: ${sleepMessage}`);
       if (dailySleepHoursElement) {
         dailySleepHoursElement.innerText = sleepMessage;
       } else {
@@ -178,7 +177,6 @@ function displayDailySleepQuality(userID, date) {
   fetchSleepData()
     .then(sleepData => {
       const qualityMessage = getDailyQuality(sleepData, userID, date);
-      console.log(`Daily sleep quality for user ${userID} on ${date}: ${qualityMessage}`);
       if (dailySleepQualityElement) {
         dailySleepQualityElement.innerText = qualityMessage;
       } else {
@@ -188,11 +186,31 @@ function displayDailySleepQuality(userID, date) {
     .catch(error => console.error('Error displaying daily sleep quality:', error));
 }
 
+function displayRecentSleep() {
+  fetchSleepData().then(sleepData => {
+    if (!sleepData || sleepData === 'No data available') {
+      weeklySleepData.innerText = 'No data available.'
+      return
+    }
+    const recentSleep = getRecentSleep(sleepData)
+    weeklySleepDataResult.innerHTML = recentSleep.map(sleep => `
+    <div class="sleep-entry">
+      <p>Date: ${sleep.date}</p>
+      <p>Hours Slept: ${sleep.hoursSlept}</p>
+      <p>Sleep Quality: ${sleep.sleepQuality}</p>
+    </div>
+  `).join('')
+    }).catch(error => {
+      weeklySleepData.innerText = 'Error Loading Data'
+      console.error('Error processing data', error)
+    })
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const welcomeOverlay = document.querySelector('.welcome-overlay');
   setTimeout(() => {
     welcomeOverlay.classList.add('fade-out');
-  }, 6000); 
+  }, 6000);
 });
 
 addEventListener('load', displayRandomUser);
