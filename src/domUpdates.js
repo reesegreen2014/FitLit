@@ -1,7 +1,4 @@
 // domUpdates.js
-
-// domUpdates.js
-
 import { getUserData, calculateAverageStepGoal } from './userData.js';
 import { calculateDailyFluidOunces, calculateWeeklyFluidOunces } from './hydrationData.js';
 import { fetchUsers, fetchHydrationData, fetchSleepData, fetchActivityData } from './apiCalls.js';
@@ -26,11 +23,10 @@ function displayRandomUser() {
     .then(users => {
       const randomIndex = getRandomIndex(users);
       const { id, strideLength, dailyStepGoal, friends, name } = users[randomIndex];
-      userInfo.innerHTML = `Your information: 
-        <p>ID: ${id}</p>
-        <p>Stride Length: ${strideLength}</p>
-        <p>Daily Step Goal: ${dailyStepGoal}</p>
-        <p>Friends: ${getFriendsNames(friends, users)}</p>`;
+      userInfo.innerHTML = `<h2>Your information:</h2>
+        <p><h4>Stride Length:</h4> ${strideLength}</p>
+        <p><h4>Daily Step Goal:</h4> ${dailyStepGoal}</p>
+        <p><h4>Friends:</h4> ${getFriendsNames(friends, users)}</p>`;
       userName.innerText = `${name}`;
       displayStepGoal(users);
       displayWaterConsumptionToday(id);
@@ -111,25 +107,32 @@ function displayWaterConsumptionLatestWeek(id) {
     .then(hydrationData => {
       return getCurrentDate(id).then(currentDate => {
         if (currentDate) {
-          return calculateWeeklyFluidOunces(hydrationData, id, currentDate);
+          const weeklyOunces = calculateWeeklyFluidOunces(hydrationData, id, currentDate);
+          if (typeof weeklyOunces === 'string') {
+            waterConsumptionWeekElement.innerText = weeklyOunces;
+          } else {
+            let waterConsumptionText = 'Weekly Water Consumption:\n';
+            const endDate = new Date(currentDate);
+            const startDate = new Date(endDate);
+            startDate.setDate(endDate.getDate() - 6);
+            const weeklyData = hydrationData.hydrationData.filter(d => {
+              const date = new Date(d.date);
+              return d.userID === id && date >= startDate && date <= endDate;
+            }).sort((a, b) => new Date(a.date) - new Date(b.date));
+            weeklyData.forEach((dayData, index) => {
+              waterConsumptionText += `${dayData.date}: ${weeklyOunces[index]} ounces\n`;
+            });
+            waterConsumptionWeekElement.innerText = waterConsumptionText;
+          }
         } else {
-          return "Weekly data not available just yet! Check back soon.";
+          waterConsumptionWeekElement.innerText = "Weekly data not available just yet! Check back soon.";
         }
       });
     })
-    .then(waterConsumedWeek => {
-      if (typeof waterConsumedWeek === 'string') {
-        waterConsumptionWeekElement.innerText = waterConsumedWeek;
-      } else if (Array.isArray(waterConsumedWeek)) {
-        let waterConsumptionText = 'Weekly Water Consumption:\n';
-        waterConsumedWeek.forEach((waterConsumed, index) => {
-          waterConsumptionText += `Day ${index + 1}: ${waterConsumed} ounces\n`;
-        });
-        waterConsumptionWeekElement.innerText = waterConsumptionText;
-      }
-    })
     .catch(error => console.error('Error displaying water consumption latest week:', error));
 }
+
+
 
 function displayAverageSleepHours(userID) {
   fetchSleepData()
@@ -197,6 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
 addEventListener('load', displayRandomUser);
 
 export { getRandomIndex, displayRandomUser, displayStepGoal, displayWaterConsumptionToday };
+
 
 
 
