@@ -144,4 +144,45 @@ describe('Get Most Recent Sleep Data', function() {
     ]
     expect(weekOfSleep).to.deep.equal(recentSleep)
   })
+
+  it('should handle empty user data', () => {
+    sleepData = []
+    const weekOfSleep = getRecentSleep(sleepData)
+    expect(weekOfSleep).to.equal('No data available.')
+  })
+
+  it('should return all recent data, even if it is less than seven days worth', () => {
+    sleepData = {
+    sleepData: [
+      {
+        "userID": 1,
+        "date": "2023/03/24",
+        "hoursSlept": 7,
+        "sleepQuality": 4.7
+      },
+      {
+        "userID": 1,
+        "date": "2023/03/25",
+        "hoursSlept": 7,
+        "sleepQuality": 3.8
+      },
+      {
+        "userID": 1,
+        "date": "2023/03/26",
+        "hoursSlept": 7,
+        "sleepQuality": 5
+      }
+    ]
+  }
+    const expectedSleepData = [
+      { date: '2023/03/26', hoursSlept: 7, sleepQuality: 5 },
+      { date: '2023/03/25', hoursSlept: 7, sleepQuality: 3.8 },
+      { date: '2023/03/24', hoursSlept: 7, sleepQuality: 4.7 }
+    ]
+
+      const lessThanWeekOfSleep = getRecentSleep(sleepData) 
+    expect(lessThanWeekOfSleep).to.deep.equal(expectedSleepData)
+  })
+
+  
 })

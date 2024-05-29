@@ -47,9 +47,11 @@ function getAverageHrs(data, userID) {
   }
 
   function getRecentSleep(userData) {
+    if(!userData.sleepData) {
+      return 'No data available.'
+    }
     const sortedSleep = userData.sleepData.sort((a,b) => new Date(b.date) - new Date(a.date))
-    console.log('sorted', sortedSleep)
-    const mostRecentSleep = sortedSleep.slice(0,7)
+    const mostRecentSleep = sortedSleep.slice(0,Math.min(7, userData.sleepData.length))
     return mostRecentSleep.map(week => {
       return {
         date: week.date, 
