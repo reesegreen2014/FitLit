@@ -1,7 +1,7 @@
 import { getUserData, calculateAverageStepGoal } from './userData.js';
 import { calculateDailyFluidOunces, calculateWeeklyFluidOunces } from './hydrationData.js';
 import { fetchUsers, fetchHydrationData, fetchSleepData, fetchActivityData } from './apiCalls.js';
-import { getAverageHrs, getAverageQuality, getDailyHrs, getDailyQuality } from './sleep.js';
+import { getAverageHrs, getAverageQuality, getDailyHrs, getDailyQuality, getRecentSleep } from './sleep.js';
 
 const userInfo = document.querySelector('#userInfo');
 const userName = document.querySelector('.userFirstName');
@@ -12,6 +12,7 @@ const sleepAverageElement = document.querySelector('#sleepAverageResult');
 const sleepQualityElement = document.querySelector('#sleepQualityResult');
 const dailySleepHoursElement = document.querySelector('#dailySleepHoursResult');
 const dailySleepQualityElement = document.querySelector('#dailySleepQualityResult');
+const weeklySleepDataElement = document.querySelector('#weeklySleepDataResult');
 
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
@@ -34,9 +35,10 @@ function displayRandomUser() {
       displayAverageSleepHours(id);
       displayAverageSleepQuality(id);
       getCurrentDate(id).then(date => {
-      displayDailySleepHours(id, date);
-      displayDailySleepQuality(id, date);
+        displayDailySleepHours(id, date);
+        displayDailySleepQuality(id, date);
       });
+      displayRecentSleep(id);  // Added to display weekly sleep data
     })
     .catch(error => console.error('Error displaying random user:', error));
 }
@@ -183,6 +185,32 @@ function displayDailySleepQuality(userID, date) {
     .catch(error => console.error('Error displaying daily sleep quality:', error));
 }
 
+function displayRecentSleep(userID) {
+  fetchSleepData()
+    .then(sleepData => {
+      if (!sleepData || sleepData === 'No data available') {
+        weeklySleepDataElement.innerText = 'No data available.'
+        return
+      }
+      const recentSleep = getRecentSleep({sleepData: sleepData.sleepData, userID: userID});
+      if (recentSleep.length === 0) {
+        weeklySleepDataElement.innerHTML = 'No recent sleep data available.';
+        return;
+      }
+      weeklySleepDataElement.innerHTML = recentSleep.map(sleep => `
+        <div class="sleep-entry">
+          <p>Date: ${sleep.date}</p>
+          <p>Hours Slept: ${sleep.hoursSlept}</p>
+          <p>Sleep Quality: ${sleep.sleepQuality}</p>
+        </div>
+      `).join('');
+    })
+    .catch(error => {
+      weeklySleepDataElement.innerText = 'Error loading data';
+      console.error('Error processing data', error);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const welcomeOverlay = document.querySelector('.welcome-overlay');
   setTimeout(() => {
@@ -192,4 +220,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 addEventListener('load', displayRandomUser);
 
-export { getRandomIndex, displayRandomUser, displayStepGoal, displayWaterConsumptionToday };
+export { getRandomIndex, displayRandomUser, displayStepGoal, displayWaterConsumptionToday, displayRecentSleep };
