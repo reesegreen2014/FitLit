@@ -1,3 +1,5 @@
+// hydrationData.js
+
 function calculateAverageFluidOunces(data, id) {
   const hydrationData = data.hydrationData.filter(d => d.userID === id);
   if (hydrationData.length === 0) {
@@ -8,9 +10,6 @@ function calculateAverageFluidOunces(data, id) {
 }
 
 function calculateDailyFluidOunces(data, userID, date) {
-  if (!data || !data.hydrationData) {
-    throw new Error("Invalid data: " + JSON.stringify(data));
-  }
   const hydrationData = data.hydrationData.filter(d => d.userID === userID && d.date === date);
   if (hydrationData.length === 0) {
     return "No data found for the specified user and date.";
@@ -38,3 +37,4 @@ function calculateWeeklyFluidOunces(data, id, endDate) {
 }
 
 export { calculateAverageFluidOunces, calculateDailyFluidOunces, calculateWeeklyFluidOunces };
+

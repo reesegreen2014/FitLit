@@ -1,5 +1,7 @@
+// sleep.js
+
 function getAverageHrs(data, userID) {
-  const userData = data.sleepData.filter(d => d.userID === userID);
+  const userData = data.filter(d => d.userID === userID);
   if (!userData.length) {
     return `No data available.`;
   } else {
@@ -10,7 +12,7 @@ function getAverageHrs(data, userID) {
 }
 
 function getAverageQuality(data, userID) {
-  const userData = data.sleepData.filter(d => d.userID === userID);
+  const userData = data.filter(d => d.userID === userID);
   if (!userData.length) {
     return `No data available.`;
   } else {
@@ -21,7 +23,7 @@ function getAverageQuality(data, userID) {
 }
 
 function getDailyHrs(data, userID, targetDate) {
-  const userData = data.sleepData.filter(d => d.userID === userID);
+  const userData = data.filter(d => d.userID === userID);
   if (!userData.length) {
     return `No data available.`;
   }
@@ -34,7 +36,7 @@ function getDailyHrs(data, userID, targetDate) {
 }
 
 function getDailyQuality(data, userID, targetDate) {
-  const userData = data.sleepData.filter(d => d.userID === userID);
+  const userData = data.filter(d => d.userID === userID);
   if (!userData.length) {
     return 'No data available.';
   }
@@ -55,8 +57,8 @@ function getRecentSleep({ sleepData, userID }) {
   const mostRecentSleep = sortedSleep.slice(0, 7);
   return mostRecentSleep.map(week => {
     return {
-      date: week.date, 
-      hoursSlept: week.hoursSlept, 
+      date: week.date,
+      hoursSlept: week.hoursSlept,
       sleepQuality: week.sleepQuality
     };
   });
@@ -66,9 +68,10 @@ export {
   getAverageHrs,
   getAverageQuality,
   getDailyHrs,
-  getDailyQuality, 
+  getDailyQuality,
   getRecentSleep
 };
+
 
 
 
