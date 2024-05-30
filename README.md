@@ -17,6 +17,13 @@ FitLit is an activity tracker that helps you monitor various aspects of your dai
 - **Fetch API**: Fetches data from external sources.
 - **Mocha & Chai**: Testing framework to ensure code reliability and correctness.
 
+## Installation
+
+1. Clone repository onto your local machine using command git clone 
+2. cd into the repository
+3. Install dependencies using npm install
+4. Run the program using npm start
+
 ## Challenges
 
 - **Fetch API**: Implementing fetch API to retrieve data was new for us. We faced issues with asynchronous data fetching and handling errors effectively.
@@ -32,20 +39,15 @@ FitLit is an activity tracker that helps you monitor various aspects of your dai
 
 ## Screenshots/GIFs
 
-![GIF of application](Application.gif)
+![GIF of application](./src/images/Application.gif)
 
 ## Contributors
 
 **Reese Green reesegreen2014@me.com [Github](https://github.com/reesegreen2014 )**
+
 **Kyle Boomer kylemboomer@gmail.com [Github](https://github.com/KyleMBoomer)**
+
 **Kevin Nelson kmnelson23@gmail.com [Github](https://github.com/kevinm23nelson)**
-
-## Installation
-
-1. Clone repository onto your local machine using command git clone 
-2. cd into the repository
-3. Install dependencies using npm install
-4. Run the program using npm start
 
 ## Future Enhancements 
 - Incorporate Charts.js to display data through dynamic charts and graphs 
