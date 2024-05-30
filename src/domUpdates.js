@@ -1,6 +1,6 @@
 import { getUserData, calculateAverageStepGoal } from './userData.js';
 import { calculateDailyFluidOunces, calculateWeeklyFluidOunces } from './hydrationData.js';
-import { fetchUsers, fetchHydrationData, fetchSleepData, fetchActivityData } from './apiCalls.js';
+import { fetchUsers, fetchHydrationData, fetchSleepData, fetchActivityData, postHydrationData } from './apiCalls.js';
 import { getAverageHrs, getAverageQuality, getDailyHrs, getDailyQuality, getRecentSleep } from './sleep.js';
 
 const userInfo = document.querySelector('#userInfo');
@@ -21,6 +21,8 @@ document.getElementById('logSleepHoursForm').addEventListener('submit', logSleep
 document.getElementById('logSleepQualityForm').addEventListener('submit', logSleepQuality);
 document.getElementById('logWeeklySleepForm').addEventListener('submit', logWeeklySleep);
 
+let currentUser;
+
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
@@ -30,6 +32,7 @@ function displayRandomUser() {
     .then(([users, hydrationData, activityData, sleepData]) => {
       const randomIndex = getRandomIndex(users);
       const user = users[randomIndex];
+      currentUser = user;
       const { id, strideLength, dailyStepGoal, friends, name } = user;
 
       userInfo.innerHTML = `<h2>Your information:</h2>
@@ -218,8 +221,14 @@ function logStepGoal(event) {
 
 function logWaterConsumption(event) {
   event.preventDefault();
-  const date = event.target.elements.date.value;
-  const value = event.target.elements.value.value;
+  const date = event.target.elements.waterConsumptionDate.value;
+  const value = event.target.elements.waterConsumptionValue.value;
+  const userID = currentUser.id; 
+
+  postHydrationData(userID, date, value)
+    .then(response => {
+      console.log('Hydration data successfully logged:', response);
+    })
 }
 
 function logSleepHours(event) {

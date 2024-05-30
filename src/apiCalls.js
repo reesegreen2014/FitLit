@@ -25,3 +25,16 @@ export function fetchHydrationData() {
 export function fetchSleepData() {
   return fetchData('https://fitlit-api.herokuapp.com/api/v1/sleep', 'sleepData');
 }
+
+//POSTS
+export function postHydrationData(userID, date, numOunces) {
+  return fetch('http://localhost:3001/api/v1/hydration', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ userID, date, numOunces })
+  })
+  .then(response => response.json())
+  .catch(err => console.error('Error posting hydration data:', err));
+}
