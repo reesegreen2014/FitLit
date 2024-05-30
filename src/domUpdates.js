@@ -15,6 +15,12 @@ const dailySleepQualityElement = document.querySelector('#dailySleepQualityResul
 const weeklySleepDataElement = document.querySelector('#weeklySleepDataResult');
 const errorMessageElement = document.querySelector('#errorMessage');
 
+document.getElementById('logStepGoalForm').addEventListener('submit', logStepGoal);
+document.getElementById('logWaterConsumptionForm').addEventListener('submit', logWaterConsumption);
+document.getElementById('logSleepHoursForm').addEventListener('submit', logSleepHours);
+document.getElementById('logSleepQualityForm').addEventListener('submit', logSleepQuality);
+document.getElementById('logWeeklySleepForm').addEventListener('submit', logWeeklySleep);
+
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
@@ -204,5 +210,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
 addEventListener('load', displayRandomUser);
 
+function logStepGoal(event) {
+  event.preventDefault();
+  const date = event.target.elements.date.value;
+  const value = event.target.elements.value.value;
+}
+
+function logWaterConsumption(event) {
+  event.preventDefault();
+  const date = event.target.elements.date.value;
+  const value = event.target.elements.value.value;
+}
+
+function logSleepHours(event) {
+  event.preventDefault();
+  const date = event.target.elements.date.value;
+  const value = event.target.elements.value.value;
+}
+
+function logSleepQuality(event) {
+  event.preventDefault();
+  const date = event.target.elements.date.value;
+  const value = event.target.elements.value.value;
+}
+
+function logWeeklySleep(event) {
+  event.preventDefault();
+  const date = event.target.elements.date.value;
+  const value = event.target.elements.value.value;
+}
+
 export { getRandomIndex, displayRandomUser, displayStepGoal, displayWaterConsumptionToday, displayRecentSleep };
+
 
