@@ -105,4 +105,8 @@ describe('getAverageStepGoal', () => {
     activityData.push({ "numSteps": -1000 });
     expect(() => calculateAverageStepGoal(activityData)).to.throw('Invalid Step Goal');
   });
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> ce9437e22283e392d5832ebf17ae4f67aecc1ce9

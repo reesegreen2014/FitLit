@@ -153,4 +153,8 @@ describe('Hydration Data Functions', function () {
             expect(user4WeeklyFluidOunces).to.equal('Weekly data not available just yet! Check back soon.');
         });
     });
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> ce9437e22283e392d5832ebf17ae4f67aecc1ce9

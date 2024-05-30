@@ -87,6 +87,11 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+
+  h3 {
+    text-decoration: underline;
+  }
 }
 
 #sleepAverage {
@@ -160,7 +165,6 @@ main {
   margin: 25px 0 10px 0; 
 }
 
-/* Overlay styling */
 .welcome-overlay {
   position: fixed;
   top: 0;
