@@ -8,6 +8,7 @@ body {
   background-color: #e9f4f3;
 }
 
+/* Header Styles */
 .h1-header {
   font-family: 'Roboto', sans-serif;
   font-weight: 700; 
@@ -27,24 +28,22 @@ body {
   color: #379cc1; 
 }
 
-.h1-header:hover::after {
-  width: 80%;
-}
-
-.welcome-message {
+.welcome-message, h2, .dashboard-title {
   font-family: 'Itim', cursive;
-  font-size: 2em; 
-  margin-top: 25px;
-  margin-bottom: -10px;
-  color: #067249; 
+  color: #333; 
   text-align: center; 
 }
 
+.welcome-message {
+  font-size: 2em; 
+  margin: 25px 0 -10px 0;
+  color: #067249;
+}
 
 header {
   width: 100%;
   background-color: transparent;
-  color: 141E0C;
+  color: #141E0C;
   padding: 1rem 0;
   text-align: center;
 }
@@ -54,17 +53,16 @@ h1 {
 }
 
 h2 {
-  font-family: 'Itim', cursive;
   font-size: 2em; 
-  color: #333; 
   margin: 15px;
-  text-align: center;
 }
 
-.dataDashboard {
-  text-decoration: underline;
+.dashboard-title {
+  font-size: 2em; 
+  margin: 25px 0 10px 0;
 }
 
+/* Main Content */
 main {
   display: flex;
   flex-direction: column;
@@ -73,8 +71,8 @@ main {
 }
 
 .box {
-  background-color: fff;
-  border: 1px solid e0e0e0;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
   border-radius: 12px;
   padding: 1.5rem;
   margin: 1.5rem 0;
@@ -83,45 +81,17 @@ main {
   box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 
-#waterConsumption {
+#waterConsumption, #sleepAverage, #sleepQuality, #stepGoalComparison, #weeklySleepData {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-
-  h3 {
-    text-decoration: underline;
-  }
+  background-color: rgb(232, 230, 225);
 }
 
-#sleepAverage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+#waterConsumptionText, #waterConsumptionWeek, #stepGoalComparisonResult {
   text-align: center;
-}
-
-#sleepQuality {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-#stepGoalComparison {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-#waterConsumptionText {
   margin-top: 2rem;
-  text-align: center;
-}
-
-#waterConsumptionWeek {
-  text-align: center;
 }
 
 #userInfo {
@@ -139,25 +109,50 @@ main {
   justify-items: center; 
   margin-top: 1rem; 
   max-width: 600px; 
-  background-color: f5f5f5;
+  background-color: #f5f5f5;
   border-radius: 12px;
   box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
   margin-bottom: 40px;
 }
 
-#stepGoalComparison, #waterConsumption, #sleepAverage, #sleepQuality {
-  background-color: rgb(232, 230, 225);
+/*Styling for forms*/
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  justify-content: center;
+  border: 2px solid lightgreen;
+  border-radius: 20px;
+  margin-top: 20px;
 }
 
-.dashboard-title {
-  font-family: 'Itim', cursive;
-  font-size: 2em; 
-  color: #333; 
-  text-align: center; 
-  margin: 25px 0 10px 0; 
+form label {
+  margin-top: 10px;
+  text-align: center;
+  font-weight: bold;
 }
 
-.welcome-overlay {
+form input,
+form button {
+  width: 80%;
+  max-width: 300px;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+form button {
+  background-color: rgb(55, 56, 57);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+/* .welcome-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -191,4 +186,4 @@ main {
 
 .welcome-overlay.fade-out {
   animation: fadeOut 1s forwards;
-}
+} */

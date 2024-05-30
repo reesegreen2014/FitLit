@@ -23,33 +23,66 @@
         </section>
         <h2 class="dataDashboard">Your Data Dashboard:</h2>
         <div class="userData">
-            <section id="stepGoalComparison" class="box">
-                <h2>Your step goal compared to the average:</h2><span id="stepGoalComparisonResult"></span></p>
+            <section id="stepGoalComparison" class="box logForm">
+                <h2>Your step goal compared to the average:</h2>
+                <span id="stepGoalComparisonResult"></span>
+                <form id="logStepGoalForm">
+                    <label for="stepGoalDate">Date:</label>
+                    <input type="date" id="stepGoalDate" name="stepGoalDate" required>
+                    <label for="stepGoalValue">Step Goal Value:</label>
+                    <input type="number" id="stepGoalValue" name="stepGoalValue" required>
+                    <button type="submit">Log Step Goal</button>
+                </form>
             </section>
-            <section id="waterConsumption" class="box">
+            <section id="waterConsumption" class="box logForm">
                 <h2>Your Water Consumption:</h2>
-                <p id="waterConsumptionToday"></p> 
-                <p id="waterConsumptionWeek"></p> 
+                <p id="waterConsumptionToday"></p>
+                <p id="waterConsumptionWeek"></p>
+                <form id="logWaterConsumptionForm">
+                    <label for="waterConsumptionDate">Date:</label>
+                    <input type="date" id="waterConsumptionDate" name="waterConsumptionDate" required>
+                    <label for="waterConsumptionValue">Water Consumption Value:</label>
+                    <input type="number" id="waterConsumptionValue" name="waterConsumptionValue" required>
+                    <button type="submit">Log Water Consumption</button>
+                </form>
             </section>
-            <section id="sleepAverage" class="box">
+            <section id="sleepAverage" class="box logForm">
                 <h2>Your Sleep Data:</h2>
                 <p>Average hours of sleep: <span id="sleepAverageResult"></span></p>
                 <p>Daily hours of sleep: <span id="dailySleepHoursResult"></span></p>
+                <form id="logSleepHoursForm">
+                    <label for="sleepHoursDate">Date:</label>
+                    <input type="date" id="sleepHoursDate" name="sleepHoursDate" required>
+                    <label for="sleepHoursValue">Sleep Hours Value:</label>
+                    <input type="number" id="sleepHoursValue" name="sleepHoursValue" required>
+                    <button type="submit">Log Sleep Hours</button>
+                </form>
             </section>
-            <section id="sleepQuality" class="box">
+            <section id="sleepQuality" class="box logForm">
                 <h2>Your Sleep Quality:</h2>
                 <p>Average sleep quality: <span id="sleepQualityResult"></span></p>
                 <p>Daily sleep quality: <span id="dailySleepQualityResult"></span></p>
+                <form id="logSleepQualityForm">
+                    <label for="sleepQualityDate">Date:</label>
+                    <input type="date" id="sleepQualityDate" name="sleepQualityDate" required>
+                    <label for="sleepQualityValue">Sleep Quality Value:</label>
+                    <input type="number" id="sleepQualityValue" name="sleepQualityValue" required>
+                    <button type="submit">Log Sleep Quality</button>
+                </form>
             </section>
-            <section class="box" id="weeklySleepData">
+            <section class="box logForm" id="weeklySleepData">
                 <h2>Weekly Sleep: </h2>
                 <p><span id="weeklySleepDataResult"></span></p>
+                <form id="logWeeklySleepForm">
+                    <label for="weeklySleepDate">Date:</label>
+                    <input type="date" id="weeklySleepDate" name="weeklySleepDate" required>
+                    <label for="weeklySleepValue">Weekly Sleep Value:</label>
+                    <input type="number" id="weeklySleepValue" name="weeklySleepValue" required>
+                    <button type="submit">Log Weekly Sleep</button>
+                </form>
             </section>            
         </div>
     </main>
     <script src="bundle.js"></script> 
 </body>
 </html>
-
-
-
