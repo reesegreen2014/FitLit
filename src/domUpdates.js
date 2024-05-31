@@ -1,6 +1,6 @@
 import { getUserData, calculateAverageStepGoal } from './userData.js';
 import { calculateDailyFluidOunces, calculateWeeklyFluidOunces } from './hydrationData.js';
-import { fetchUsers, fetchHydrationData, fetchSleepData, fetchActivityData, postHydrationData } from './apiCalls.js';
+import { fetchUsers, fetchHydrationData, fetchSleepData, fetchActivityData, postHydrationData, postSleepData } from './apiCalls.js';
 import { getAverageHrs, getAverageQuality, getDailyHrs, getDailyQuality, getRecentSleep } from './sleep.js';
 
 const userInfo = document.querySelector('#userInfo');
@@ -241,9 +241,24 @@ function logWaterConsumption(event) {
 function logSleepHours(event) {
   event.preventDefault();
   const date = event.target.elements.sleepHoursDate.value;
-  const hoursValue = event.target.elements.sleepHoursValue.value;
-  const qualityValue = event.target.elements.sleepQualityValue.value;
+  const hoursSlept = event.target.elements.sleepHoursValue.value;
+  const sleepQuality = event.target.elements.sleepQualityValue.value;
+  const userID = currentUser.id;
   
+  postSleepData(userID, date, hoursSlept, sleepQuality)
+  .then(sleepData => {
+    console.log('Sleep data logged successfully:', sleepData)
+    const currentDate = getCurrentDate(sleepData, userID)
+    displayDailySleepHours(sleepData, userID, date);
+    displayDailySleepQuality(sleepData, userID, date);
+    displayAverageSleepHours(sleepData, userID);
+    displayAverageSleepQuality(sleepData, userID);
+    displayRecentSleep(sleepData, userID);
+  })
+  .catch(error => {
+    console.error('Error logging sleep data:', error);
+      displayError('An error occurred while logging sleep data. Please try again later.');
+  });
 }
 
 function logWeeklySleep(event) {

@@ -50,3 +50,28 @@ export function postHydrationData(userID, date, numOunces) {
     throw err; 
   });
 }
+
+
+export function postSleepData(userID, date, hoursSlept, sleepQuality) {
+  return fetch('http://localhost:3001/api/v1/sleep', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ userID, date, hoursSlept, sleepQuality })
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to post hydration data');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Posted hydration data:', data);
+    return fetchSleepData();
+  })
+  .catch(err => {
+    console.error('Error posting hydration data:', err);
+    throw err; 
+  });
+}
