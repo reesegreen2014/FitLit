@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Borel&family=Caveat:wght@400..700&family=Foldit:wght@100..900&family=Itim&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Borel&family=Caveat:wght@400..700&family=Foldit:wght@100..900&family=Itim&display=swap"
+        rel="stylesheet">
     <title>🤾 Fit Lit ⛹️‍♀️</title>
-    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="welcome-overlay">
         <span class="welcome-message">Welcome to the Activity Tracker. Fetching your data now . . .</span>
@@ -30,7 +34,8 @@
                     <label for="stepGoalDate">Date:</label>
                     <input type="date" id="stepGoalDate" name="stepGoalDate" required>
                     <label for="stepGoalValue">Step Goal Value:</label>
-                    <input type="number" id="stepGoalValue" name="stepGoalValue" placeholder="Enter steps here" required>
+                    <input type="number" id="stepGoalValue" name="stepGoalValue" placeholder="Enter steps here"
+                        required>
                     <button type="submit">Log Step Goal</button>
                 </form>
             </section>
@@ -42,47 +47,46 @@
                     <label for="waterConsumptionDate">Date:</label>
                     <input type="date" id="waterConsumptionDate" name="waterConsumptionDate" required>
                     <label for="waterConsumptionValue">Water Consumption Value:</label>
-                    <input type="number" id="waterConsumptionValue" name="waterConsumptionValue" placeholder="Enter ounces here" required>
+                    <input type="number" id="waterConsumptionValue" name="waterConsumptionValue"
+                        placeholder="Enter ounces here" required>
                     <button type="submit">Log Water Consumption</button>
                 </form>
             </section>
-            <section id="sleepAverage" class="box logForm">
-                <h2>Your Sleep Data:</h2>
-                <p>Average hours of sleep: <span id="sleepAverageResult"></span></p>
-                <p>Daily hours of sleep: <span id="dailySleepHoursResult"></span></p>
-                <form id="logSleepHoursForm">
-                    <label for="sleepHoursDate">Date:</label>
-                    <input type="date" id="sleepHoursDate" name="sleepHoursDate" required>
-                    <label for="sleepHoursValue">Sleep Hours Value:</label>
-                    <input type="number" id="sleepHoursValue" name="sleepHoursValue" placeholder="Enter hours here" required>
-                    <button type="submit">Log Sleep Hours</button>
-                </form>
+            <section id="sleepData">
+                <section id="sleepAverage" class="box logForm">
+                    <h2>Your Sleep Data:</h2>
+                    <p>Average hours of sleep: <span id="sleepAverageResult"></span></p>
+                    <p>Daily hours of sleep: <span id="dailySleepHoursResult"></span></p>
+                    <p>Average sleep quality: <span id="sleepQualityResult"></span></p>
+                    <p>Daily sleep quality: <span id="dailySleepQualityResult"></span></p>
+                    <form id="logSleepHoursForm">
+                        <label for="sleepHoursDate">Date:</label>
+                        <input type="date" id="sleepHoursDate" name="sleepHoursDate" required>
+                        <label for="sleepHoursValue">Sleep Hours Value:</label>
+                        <input type="number" id="sleepHoursValue" name="sleepHoursValue" placeholder="Enter hours here"
+                            required>
+                        <label for="sleepQualityValue">Sleep Quality Value:</label>
+                        <input type="number" id="sleepQualityValue" name="sleepQualityValue"
+                            placeholder="Enter quality here" required>
+                        <button type="submit">Log Sleep Data</button>
+                    </form>
+                </section>
+                <section class="box logForm" id="weeklySleepData">
+                    <h2>Weekly Sleep: </h2>
+                    <p><span id="weeklySleepDataResult"></span></p>
+                    <form id="logWeeklySleepForm">
+                        <label for="weeklySleepDate">Date:</label>
+                        <input type="date" id="weeklySleepDate" name="weeklySleepDate" required>
+                        <label for="weeklySleepValue">Weekly Sleep Value:</label>
+                        <input type="number" id="weeklySleepValue" name="weeklySleepValue" placeholder="Enter something"
+                            required>
+                        <button type="submit">Log Weekly Sleep</button>
+                    </form>
+                </section>
             </section>
-            <section id="sleepQuality" class="box logForm">
-                <h2>Your Sleep Quality:</h2>
-                <p>Average sleep quality: <span id="sleepQualityResult"></span></p>
-                <p>Daily sleep quality: <span id="dailySleepQualityResult"></span></p>
-                <form id="logSleepQualityForm">
-                    <label for="sleepQualityDate">Date:</label>
-                    <input type="date" id="sleepQualityDate" name="sleepQualityDate" required>
-                    <label for="sleepQualityValue">Sleep Quality Value:</label>
-                    <input type="number" id="sleepQualityValue" name="sleepQualityValue" placeholder="Enter quality here" required>
-                    <button type="submit">Log Sleep Quality</button>
-                </form>
-            </section>
-            <section class="box logForm" id="weeklySleepData">
-                <h2>Weekly Sleep: </h2>
-                <p><span id="weeklySleepDataResult"></span></p>
-                <form id="logWeeklySleepForm">
-                    <label for="weeklySleepDate">Date:</label>
-                    <input type="date" id="weeklySleepDate" name="weeklySleepDate" required>
-                    <label for="weeklySleepValue">Weekly Sleep Value:</label>
-                    <input type="number" id="weeklySleepValue" name="weeklySleepValue" placeholder="Enter something" required>
-                    <button type="submit">Log Weekly Sleep</button>
-                </form>
-            </section>            
         </div>
     </main>
-    <script src="bundle.js"></script> 
+    <script src="bundle.js"></script>
 </body>
+
 </html>
