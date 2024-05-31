@@ -18,7 +18,6 @@ const errorMessageElement = document.querySelector('#errorMessage');
 document.getElementById('logStepGoalForm').addEventListener('submit', logStepGoal);
 document.getElementById('logWaterConsumptionForm').addEventListener('submit', logWaterConsumption);
 document.getElementById('logSleepHoursForm').addEventListener('submit', logSleepHours);
-document.getElementById('logSleepQualityForm').addEventListener('submit', logSleepQuality);
 document.getElementById('logWeeklySleepForm').addEventListener('submit', logWeeklySleep);
 
 function getRandomIndex(array) {
@@ -212,34 +211,34 @@ addEventListener('load', displayRandomUser);
 
 function logStepGoal(event) {
   event.preventDefault();
-  const date = event.target.elements.date.value;
-  const value = event.target.elements.value.value;
+  const date = event.target.elements.stepGoalDate.value;
+  const value = event.target.elements.stepGoalValue.value;
+  
 }
 
 function logWaterConsumption(event) {
   event.preventDefault();
-  const date = event.target.elements.date.value;
-  const value = event.target.elements.value.value;
+  const date = event.target.elements.waterConsumptionDate.value;
+  const value = event.target.elements.waterConsumptionValue.value;
+  
 }
 
 function logSleepHours(event) {
   event.preventDefault();
-  const date = event.target.elements.date.value;
-  const value = event.target.elements.value.value;
-}
-
-function logSleepQuality(event) {
-  event.preventDefault();
-  const date = event.target.elements.date.value;
-  const value = event.target.elements.value.value;
+  const date = event.target.elements.sleepHoursDate.value;
+  const hoursValue = event.target.elements.sleepHoursValue.value;
+  const qualityValue = event.target.elements.sleepQualityValue.value;
+  
 }
 
 function logWeeklySleep(event) {
   event.preventDefault();
-  const date = event.target.elements.date.value;
-  const value = event.target.elements.value.value;
+  const date = event.target.elements.weeklySleepDate.value;
+  const value = event.target.elements.weeklySleepValue.value;
+  
 }
 
 export { getRandomIndex, displayRandomUser, displayStepGoal, displayWaterConsumptionToday, displayRecentSleep };
+
 
 
