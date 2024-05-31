@@ -226,9 +226,15 @@ function logWaterConsumption(event) {
   const userID = currentUser.id; 
 
   postHydrationData(userID, date, value)
-    .then(response => {
-      console.log('Hydration data successfully logged:', response);
-    })
+  .then(hydrationData => {
+    console.log('Hydration data successfully logged:', hydrationData);
+    const currentDate = getCurrentDate(hydrationData, userID);
+    displayWaterConsumptionToday(hydrationData, userID, currentDate);
+    displayWaterConsumptionLatestWeek(hydrationData, userID, currentDate);
+  })
+  .catch(error => {
+    console.error('Error logging hydration data:', error);
+  });
 }
 
 
