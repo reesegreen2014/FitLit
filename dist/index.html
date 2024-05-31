@@ -55,19 +55,19 @@
             <section id="sleepData">
                 <section id="sleepAverage" class="box logForm">
                     <h2>Your Sleep Data:</h2>
-                    <p>Average hours of sleep: <span id="sleepAverageResult"></span></p>
+                    <h3>Daily Sleep Data:</h3>
                     <p>Daily hours of sleep: <span id="dailySleepHoursResult"></span></p>
-                    <p>Average sleep quality: <span id="sleepQualityResult"></span></p>
                     <p>Daily sleep quality: <span id="dailySleepQualityResult"></span></p>
+                    <h3>All-Time Sleep Data:</h3>
+                    <p>All time average hours of sleep: <span id="sleepAverageResult"></span></p>
+                    <p>All time average sleep quality: <span id="sleepQualityResult"></span></p>
                     <form id="logSleepHoursForm">
                         <label for="sleepHoursDate">Date:</label>
                         <input type="date" id="sleepHoursDate" name="sleepHoursDate" required>
                         <label for="sleepHoursValue">Sleep Hours Value:</label>
-                        <input type="number" id="sleepHoursValue" name="sleepHoursValue" placeholder="Enter hours here"
-                            required>
+                        <input type="number" id="sleepHoursValue" name="sleepHoursValue" placeholder="Hours Slept" max="24" required>
                         <label for="sleepQualityValue">Sleep Quality Value:</label>
-                        <input type="number" id="sleepQualityValue" name="sleepQualityValue"
-                            placeholder="Enter quality here" required>
+                        <input type="number" id="sleepQualityValue" name="sleepQualityValue" placeholder="Sleep quality (1-5)" max="5" required>
                         <button type="submit">Log Sleep Data</button>
                     </form>
                 </section>

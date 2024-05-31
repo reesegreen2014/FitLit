@@ -105,7 +105,7 @@ function displayWaterConsumptionToday(hydrationData, id, currentDate) {
     if (currentDate) {
       const waterConsumedToday = calculateDailyFluidOunces({ hydrationData }, id, currentDate);
       if (waterConsumedToday !== undefined) {
-        waterConsumptionTodayElement.innerHTML = `<h3>Water Consumed Today:</h3><p>${waterConsumedToday} ounces</p>`;
+        waterConsumptionTodayElement.innerHTML = `<h3>Water Consumed Today:</h3><p>${parseInt(waterConsumedToday)} ounces</p>`;
       } else {
         waterConsumptionTodayElement.innerHTML = "<h3>Water Consumed Today:</h3><p>No data found for the specified user and date.</p>";
       }
