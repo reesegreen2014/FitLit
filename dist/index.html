@@ -28,16 +28,15 @@
         <h2 class="dataDashboard">Your Data Dashboard:</h2>
         <div class="userData">
             <section id="stepGoalComparison" class="box logForm">
-                <h2>Your step goal compared to the average:</h2>
+                <h2>Step data:</h2>
                 <span id="stepGoalComparisonResult"></span>
-                <form id="logStepGoalForm">
-                    <label for="stepGoalDate">Date:</label>
-                    <input type="date" id="stepGoalDate" name="stepGoalDate" required>
-                    <label for="stepGoalValue">Step Goal Value:</label>
-                    <input type="number" id="stepGoalValue" name="stepGoalValue" placeholder="Enter steps here"
-                        required>
-                    <button type="submit">Log Step Goal</button>
-                </form>
+                <canvas id="stepGoalComparisonChart" width="400" height="200"></canvas>
+                <span id="logStepGoalForm"></span>
+                <section id="stepChallenge" class="box logForm">
+                    <h3>Step Challenge</h3>
+                    <div id="stepChallengeData"></div>
+                    <div id="stepChallengeWinner"></div>
+                </section>
             </section>
             <section id="waterConsumption" class="box logForm">
                 <h2>Your Water Consumption:</h2>
@@ -84,16 +83,9 @@
                     </form>
                 </section>
             </section>
-            <section id="stepChallenge" class="box logForm">
-                <h2>Step Challenge</h2>
-                <div id="stepChallengeData"></div>
-                <div id="stepChallengeWinner"></div>
-            </section>
         </div>
     </main>
     <script src="bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
-
 </html>
-
-
