@@ -14,6 +14,8 @@ const dailySleepHoursElement = document.querySelector('#dailySleepHoursResult');
 const dailySleepQualityElement = document.querySelector('#dailySleepQualityResult');
 const weeklySleepDataElement = document.querySelector('#weeklySleepDataResult');
 const errorMessageElement = document.querySelector('#errorMessage');
+const stepChallengeDataElement = document.querySelector('#stepChallengeData');
+const stepChallengeWinnerElement = document.querySelector('#stepChallengeWinner'); // New element for displaying the winner
 
 document.getElementById('logStepGoalForm').addEventListener('submit', logStepGoal);
 document.getElementById('logWaterConsumptionForm').addEventListener('submit', logWaterConsumption);
@@ -40,8 +42,9 @@ function displayRandomUser() {
         <p><h4>Friends:</h4> ${getFriendsNames(friends, users)}</p>`;
       userName.innerText = `${name}`;
 
+      const currentDate = getCurrentDate(activityData, id);
       displayStepGoal(user, activityData);
-      const currentDate = getCurrentDate(hydrationData, id);
+      const friendsWithSteps = displayStepChallenge(user, users, activityData, currentDate);
       displayWaterConsumptionToday(hydrationData, id, currentDate);
       displayWaterConsumptionLatestWeek(hydrationData, id, currentDate);
       displayAverageSleepHours(sleepData, id);
@@ -49,6 +52,7 @@ function displayRandomUser() {
       displayDailySleepHours(sleepData, id, currentDate);
       displayDailySleepQuality(sleepData, id, currentDate);
       displayRecentSleep(sleepData, id);
+      displayStepChallengeWinner(friendsWithSteps.userSteps, friendsWithSteps.friends);  // New function call
     })
     .catch(error => {
       console.error('Error displaying random user:', error);
@@ -90,11 +94,11 @@ function displayStepGoal(user, activityData) {
   }
 }
 
-function getCurrentDate(hydrationData, id) {
-  const userHydrationData = hydrationData.filter(data => data.userID === id);
-  if (userHydrationData.length) {
-    userHydrationData.sort((a, b) => new Date(b.date) - new Date(a.date));
-    return userHydrationData[0].date;
+function getCurrentDate(activityData, id) {
+  const userActivityData = activityData.filter(data => data.userID === id);
+  if (userActivityData.length) {
+    userActivityData.sort((a, b) => new Date(b.date) - new Date(a.date));
+    return userActivityData[0].date;
   } else {
     return null;
   }
@@ -207,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const welcomeOverlay = document.querySelector('.welcome-overlay');
   setTimeout(() => {
     welcomeOverlay.classList.add('fade-out');
-  }, 6000); 
+  }, 6000);
 });
 
 addEventListener('load', displayRandomUser);
@@ -216,27 +220,26 @@ function logStepGoal(event) {
   event.preventDefault();
   const date = event.target.elements.stepGoalDate.value;
   const value = event.target.elements.stepGoalValue.value;
-  
+
 }
 
 function logWaterConsumption(event) {
   event.preventDefault();
   const date = event.target.elements.waterConsumptionDate.value;
   const value = event.target.elements.waterConsumptionValue.value;
-  const userID = currentUser.id; 
+  const userID = currentUser.id;
 
   postHydrationData(userID, date, value)
-  .then(hydrationData => {
-    console.log('Hydration data successfully logged:', hydrationData);
-    const currentDate = getCurrentDate(hydrationData, userID);
-    displayWaterConsumptionToday(hydrationData, userID, currentDate);
-    displayWaterConsumptionLatestWeek(hydrationData, userID, currentDate);
-  })
-  .catch(error => {
-    console.error('Error logging hydration data:', error);
-  });
+    .then(hydrationData => {
+      console.log('Hydration data successfully logged:', hydrationData);
+      const currentDate = getCurrentDate(hydrationData, userID);
+      displayWaterConsumptionToday(hydrationData, userID, currentDate);
+      displayWaterConsumptionLatestWeek(hydrationData, userID, currentDate);
+    })
+    .catch(error => {
+      console.error('Error logging hydration data:', error);
+    });
 }
-
 
 function logSleepHours(event) {
   event.preventDefault();
@@ -244,31 +247,97 @@ function logSleepHours(event) {
   const hoursSlept = event.target.elements.sleepHoursValue.value;
   const sleepQuality = event.target.elements.sleepQualityValue.value;
   const userID = currentUser.id;
-  
+
   postSleepData(userID, date, hoursSlept, sleepQuality)
-  .then(sleepData => {
-    console.log('Sleep data logged successfully:', sleepData)
-    const currentDate = getCurrentDate(sleepData, userID)
-    displayDailySleepHours(sleepData, userID, date);
-    displayDailySleepQuality(sleepData, userID, date);
-    displayAverageSleepHours(sleepData, userID);
-    displayAverageSleepQuality(sleepData, userID);
-    displayRecentSleep(sleepData, userID);
-  })
-  .catch(error => {
-    console.error('Error logging sleep data:', error);
+    .then(sleepData => {
+      console.log('Sleep data logged successfully:', sleepData)
+      const currentDate = getCurrentDate(sleepData, userID)
+      displayDailySleepHours(sleepData, userID, date);
+      displayDailySleepQuality(sleepData, userID, date);
+      displayAverageSleepHours(sleepData, userID);
+      displayAverageSleepQuality(sleepData, userID);
+      displayRecentSleep(sleepData, userID);
+    })
+    .catch(error => {
+      console.error('Error logging sleep data:', error);
       displayError('An error occurred while logging sleep data. Please try again later.');
-  });
+    });
 }
 
 function logWeeklySleep(event) {
   event.preventDefault();
   const date = event.target.elements.weeklySleepDate.value;
   const value = event.target.elements.weeklySleepValue.value;
-  
+
+}
+
+function displayStepChallenge(user, users, activityData, currentDate) {
+  const friendsWithSteps = getFriendsSteps(user, users, activityData, currentDate);
+  stepChallengeDataElement.innerHTML = `
+    <p><h4>Your Steps:</h4> ${friendsWithSteps.userSteps} steps</p>
+    ${friendsWithSteps.friends.map(friend => `
+      <p><h4>${friend.name}:</h4> ${friend.steps} steps</p>
+    `).join('')}
+  `;
+  return friendsWithSteps;
+}
+
+function getFriendsSteps(user, users, activityData, currentDate) {
+  const userActivity = activityData.find(activity => activity.userID === user.id && activity.date === currentDate);
+  let userSteps;
+  if (userActivity) {
+    userSteps = userActivity.numSteps;
+  } else {
+    userSteps = 0;
+  }
+  const friendsSteps = user.friends.map(friendId => {
+    const friend = users.find(user => user.id === friendId);
+    let friendName;
+    if (friend) {
+      friendName = friend.name;
+    } else {
+      friendName = 'Unknown';
+    }
+    const friendActivity = activityData.find(activity => activity.userID === friendId && activity.date === currentDate);
+    let friendSteps;
+    if (friendActivity) {
+      friendSteps = friendActivity.numSteps;
+    } else {
+      friendSteps = 0;
+    }
+    return {
+      name: friendName,
+      steps: friendSteps
+    };
+  });
+  return { userSteps, friends: friendsSteps };
+}
+
+function getWinnerOfSteps(userSteps, friendsSteps) {
+  const allUsers = [{ name: 'You', steps: userSteps }];
+  friendsSteps.forEach(friend => {
+    allUsers.push({ name: friend.name, steps: friend.steps });
+  });
+  const highestStepUser = allUsers.reduce((acc, currentUser) => {
+    if (currentUser.steps > acc.steps) {
+      return currentUser;
+    }
+    return acc;
+  }, { name: '', steps: 0 });
+  return highestStepUser;
+}
+
+function displayStepChallengeWinner(userSteps, friendsSteps) {
+  const highestStepUser = getWinnerOfSteps(userSteps, friendsSteps);
+  const winnerElement = document.createElement('p');
+  let winnerText;
+  if (highestStepUser.name === 'You') {
+    winnerText = 'You are the winner';
+  } else {
+    winnerText = `${highestStepUser.name} is the winner`;
+  }
+  winnerElement.innerText = `${winnerText} with ${highestStepUser.steps} steps!`;
+  stepChallengeWinnerElement.appendChild(winnerElement);
 }
 
 export { getRandomIndex, displayRandomUser, displayStepGoal, displayWaterConsumptionToday, displayRecentSleep };
-
-
-

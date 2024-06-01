@@ -70,7 +70,6 @@ main {
   width: 100%;
 }
 
-
 #sleepData {
   grid-column: 1 / -1;
   width: 100%;
@@ -80,9 +79,13 @@ main {
   align-items: center;
 }
 
+#stepChallenge {
+  justify-content: center;
+  grid-column: 1 / -1;
+}
+
 #sleepAverage, #weeklySleepData {
   width: 100%;
-  
 }
 
 .box {
@@ -96,14 +99,17 @@ main {
   box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 
-#waterConsumption, #sleepAverage, #stepGoalComparison, #weeklySleepData {
+#waterConsumption, #sleepAverage, #stepGoalComparison, #weeklySleepData, #stepChallenge {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   background-color: rgb(232, 230, 225);
+  width: 80%;
+  max-width: 600px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
 }
-
 
 #waterConsumptionText, #waterConsumptionWeek, #stepGoalComparisonResult {
   text-align: center;
@@ -131,7 +137,7 @@ main {
   margin-bottom: 40px;
 }
 
-/*Styling for forms*/
+/* Styling for forms */
 form {
   display: flex;
   flex-direction: column;
@@ -164,6 +170,31 @@ form button {
   color: white;
   border: none;
   cursor: pointer;
+}
+
+/* Winner Message Animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    text-shadow: 0 0 5px #07826c, 0 0 10px #00ffcc, 0 0 15px #00ffcc, 0 0 20px #00ffcc;
+  }
+  50% {
+    transform: scale(1.05);
+    text-shadow: 0 0 10px #0a6956, 0 0 20px #00ffcc, 0 0 30px #00ffcc, 0 0 40px #00ffcc;
+  }
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 5px #055d4b, 0 0 10px #00ffcc, 0 0 15px #00ffcc, 0 0 20px #00ffcc;
+  }
+}
+
+#stepChallengeWinner p {
+  font-family: 'Itim', cursive;
+  font-size: 2em;
+  color: #0f487a;
+  font-weight: 200;
+  animation: pulse 3s infinite;
+  text-shadow: 6px 6px 8px #000;
 }
 
 
