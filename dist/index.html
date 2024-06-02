@@ -22,7 +22,6 @@
     </header>
     <main>
         <section id="userInfo" class="box">
-            <!-- This will show the user all of their info -->
         </section>
         <h2 class="dataDashboard">Your Data Dashboard:</h2>
         <div class="userData">
@@ -62,15 +61,19 @@
                         <label for="sleepHoursDate">Date:</label>
                         <input type="date" id="sleepHoursDate" name="sleepHoursDate" required>
                         <label for="sleepHoursValue">Sleep Hours Value:</label>
-                        <input type="number" id="sleepHoursValue" name="sleepHoursValue" placeholder="Hours Slept" max="24" required>
+                        <input type="number" id="sleepHoursValue" name="sleepHoursValue" placeholder="Hours Slept"
+                            max="24" required>
                         <label for="sleepQualityValue">Sleep Quality Value:</label>
-                        <input type="number" id="sleepQualityValue" name="sleepQualityValue" placeholder="Sleep quality (1-5)" max="5" required>
+                        <input type="number" id="sleepQualityValue" name="sleepQualityValue"
+                            placeholder="Sleep quality (1-5)" max="5" required>
                         <button type="submit">Log Sleep Data</button>
                     </form>
                 </section>
                 <section class="box logForm" id="weeklySleepData">
                     <h2>Weekly Sleep: </h2>
-                    <p><span id="weeklySleepDataResult"></span></p>
+                    <canvas id="sleepChart">
+                        <p><span id="weeklySleepDataResult"></span></p>
+                    </canvas>
                     <form id="logWeeklySleepForm">
                         <label for="weeklySleepDate">Date:</label>
                         <input type="date" id="weeklySleepDate" name="weeklySleepDate" required>
@@ -84,6 +87,8 @@
         </div>
     </main>
     <script src="bundle.js"></script>
+    <script src="charts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
+
 </html>

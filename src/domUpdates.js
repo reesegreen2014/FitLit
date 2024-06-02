@@ -3,6 +3,7 @@ import { calculateDailyFluidOunces, calculateWeeklyFluidOunces } from './hydrati
 import { fetchUsers, fetchHydrationData, fetchSleepData, fetchActivityData, postHydrationData, postSleepData } from './apiCalls.js';
 import { getAverageHrs, getAverageQuality, getDailyHrs, getDailyQuality, getRecentSleep } from './sleep.js';
 import { getFriendsSteps, getWinnerOfSteps } from './stepChallenge.js';
+import {createChart} from './charts.js'
 
 const userInfo = document.querySelector('#userInfo');
 const userName = document.querySelector('.userFirstName');
@@ -16,7 +17,8 @@ const dailySleepQualityElement = document.querySelector('#dailySleepQualityResul
 const weeklySleepDataElement = document.querySelector('#weeklySleepDataResult');
 const errorMessageElement = document.querySelector('#errorMessage');
 const stepChallengeDataElement = document.querySelector('#stepChallengeData');
-const stepChallengeWinnerElement = document.querySelector('#stepChallengeWinner'); // New element for displaying the winner
+const stepChallengeWinnerElement = document.querySelector('#stepChallengeWinner'); 
+const sleepChart = document.getElementById('sleepChart')
 
 document.getElementById('logStepGoalForm').addEventListener('submit', logStepGoal);
 document.getElementById('logWaterConsumptionForm').addEventListener('submit', logWaterConsumption);
@@ -195,6 +197,7 @@ function displayRecentSleep(sleepData, userID) {
       weeklySleepDataElement.innerHTML = 'No recent sleep data available.';
       return;
     }
+    createChart(sleepChart, recentSleep, 'line')
     weeklySleepDataElement.innerHTML = recentSleep.map(sleep => `
       <div class="sleep-entry">
         <p>Date: ${sleep.date}</p>
