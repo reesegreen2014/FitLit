@@ -2,9 +2,11 @@ function createChart(element,  dataset, chartType) {
     const ctx = element.getContext('2d')
     const data = [];
     const data2 = [];
+    const labels = [];
     dataset.forEach((sleep, index) => {
         data.push({ x: index, y: sleep.hoursSlept });
         data2.push({ x: index, y: sleep.sleepQuality });
+        labels.push(sleep.date)
     });
   
 const totalDuration = 5000;
@@ -41,13 +43,16 @@ const animation = {
 const config = {
     type: chartType,
     data: {
+      labels: labels,
       datasets: [{
+        label: 'Hours Slept',
         borderColor: 'red',
         borderWidth: 1,
         radius: 0,
         data: data,
       },
       {
+        label: 'Sleep Quality',
         borderColor: 'blue',
         borderWidth: 1,
         radius: 0,
@@ -55,20 +60,46 @@ const config = {
       }]
     },
     options: {
-      animation,
+      animation: false,
       interaction: {
         intersect: false
       },
       plugins: {
-        legend: false
+        legend: {
+          display: true,
+        },
+        tooltip: {
+          callbacks: {
+            title: function(context) {
+              const index = context[0].dataIndex;
+              return labels[index];
+            }
+          }
+        }
       },
       scales: {
         x: {
-          type: 'linear'
-        }
-      }
-    }
-  };
+            type: 'linear',
+            position: 'bottom',
+            ticks: {
+                callback: function(index) {
+                    return labels[index]; 
+                }
+            },
+            title: {
+                display: true,
+                text: 'Date',
+            },
+        },
+        y: {
+            title: {
+                display: true,
+                text: 'Value',
+            },
+        },
+    },
+},
+};
 
 return new Chart(ctx, config)
 }
