@@ -31,7 +31,7 @@ function getDailyHrs(data, userID, targetDate) {
   if (specifiedSleep) {
     return `You slept ${specifiedSleep.hoursSlept} hours on ${specifiedSleep.date}.`;
   } else {
-    return `No data available for that date.`;
+    return `No data for today yet! Log your data now.`;
   }
 }
 
@@ -44,7 +44,7 @@ function getDailyQuality(data, userID, targetDate) {
   if (specifiedQuality) {
     return `You experienced a sleep quality of ${specifiedQuality.sleepQuality} on ${specifiedQuality.date}.`;
   } else {
-    return 'No data available for that date.';
+    return 'No data for today yet! Log your data now.';
   }
 }
 

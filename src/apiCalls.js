@@ -11,17 +11,66 @@ function fetchData(url, key) {
 }
 
 export function fetchUsers() {
-  return fetchData('https://fitlit-api.herokuapp.com/api/v1/users', 'users');
+  return fetchData('http://localhost:3001/api/v1/users', 'users');
 }
 
 export function fetchActivityData() {
-  return fetchData('https://fitlit-api.herokuapp.com/api/v1/activity', 'activityData');
+  return fetchData('http://localhost:3001/api/v1/activity', 'activityData');
 }
 
 export function fetchHydrationData() {
-  return fetchData('https://fitlit-api.herokuapp.com/api/v1/hydration', 'hydrationData');
+  return fetchData('http://localhost:3001/api/v1/hydration', 'hydrationData');
 }
 
 export function fetchSleepData() {
-  return fetchData('https://fitlit-api.herokuapp.com/api/v1/sleep', 'sleepData');
+  return fetchData('http://localhost:3001/api/v1/sleep', 'sleepData');
+}
+
+//POSTS
+export function postHydrationData(userID, date, numOunces) {
+  return fetch('http://localhost:3001/api/v1/hydration', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ userID, date, numOunces })
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to post hydration data');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Posted hydration data:', data);
+    return fetchHydrationData();
+  })
+  .catch(err => {
+    console.error('Error posting hydration data:', err);
+    throw err; 
+  });
+}
+
+export function postSleepData(userID, date, hoursSlept, sleepQuality) {
+  return fetch('http://localhost:3001/api/v1/sleep', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ userID, date, hoursSlept, sleepQuality })
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to post sleep data');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Posted sleep data:', data);
+    return fetchSleepData();
+  })
+  .catch(err => {
+    console.error('Error posting sleep data:', err);
+    throw err; 
+  });
 }
