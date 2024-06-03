@@ -90,7 +90,7 @@ function displayStepGoal(user, activityData) {
     } else if (userStepGoal < averageStepGoal) {
       comparisonMessage = "lower";
     }
-    stepGoal.innerText = `Your step goal is ${userStepGoal}, while the average for all users is ${averageStepGoal}. Your step goal is ${comparisonMessage} than the average user's.`;
+    stepGoal.innerText = `Your step goal is ${userStepGoal}, while the average for all users is ${parseInt(averageStepGoal)}. Your step goal is ${comparisonMessage} than the average user's.`;
   } catch (error) {
     console.error('Error displaying step goal:', error);
     displayError('An error occurred while calculating step goals. Please try again later.');
