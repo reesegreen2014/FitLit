@@ -200,3 +200,89 @@ form button {
   animation: pulse 3s infinite;
   text-shadow: 6px 6px 8px #000;
 }
+
+/*ICON FORMATTING*/
+
+#stepGoalComparison {
+  position: relative;
+
+  .fa-solid.fa-shoe-prints {
+    font-size: 35px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    transform: rotate(-90deg)
+  }
+}
+
+#waterConsumption {
+  position: relative;
+
+  .fa-solid.fa-water {
+    color: rgb(0, 136, 204);
+    font-size: 35px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+}
+
+#waterConsumption {
+  position: relative;
+
+  .fa-solid.fa-water {
+    color: rgb(0, 136, 204);
+    font-size: 35px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+}
+
+#sleepAverage {
+  position: relative;
+
+  .fa-solid.fa-bed {
+    color: rgb(80, 5, 100);
+    font-size: 35px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+}
+
+#sleepAverage {
+  position: relative;
+
+  .fa-solid.fa-bed {
+    color: rgb(80, 5, 100);
+    font-size: 35px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+}
+
+#weeklySleepData {
+  position: relative;
+
+  .fa-solid.fa-arrow-trend-up {
+    color: rgb(234, 94, 6);
+    font-size: 35px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+}
+
+#userInfo {
+  position: relative;
+
+  .fa-solid.fa-circle-user {
+    color: rgb(7, 40, 9);
+    font-size: 35px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+}

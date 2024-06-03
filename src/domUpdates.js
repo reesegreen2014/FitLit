@@ -39,7 +39,9 @@ function displayRandomUser() {
       currentUser = user;
       const { id, strideLength, dailyStepGoal, friends, name } = user;
 
-      userInfo.innerHTML = `<h2>Your information:</h2>
+      userInfo.innerHTML = `
+        <i class="fa-solid fa-circle-user"></i>
+        <h2>Your information:</h2>
         <p><h4>Stride Length:</h4> ${strideLength}</p>
         <p><h4>Daily Step Goal:</h4> ${dailyStepGoal}</p>
         <p><h4>Friends:</h4> ${getFriendsNames(friends, users)}</p>`;
