@@ -23,14 +23,14 @@ FitLit is an activity tracker that helps you monitor various aspects of your dai
 ## Installation
 
 **Install Backend API**
-1. Follow the instructions in this README to get the API running. 
+1. Follow the instructions in this README to get the API running:
 [API Setup](https://github.com/turingschool-examples/fitlit-api)
 
 **Install and launch application**
-1. Clone repository onto your local machine using command git clone 
-2. cd into the repository
-3. Install dependencies using npm install
-4. Run the program using npm start
+1. Clone repository onto your local machine using command `git clone`
+2. `cd` into the repository
+3. Install dependencies using `npm install`
+4. Run the program using `npm start`
 
 ## Challenges
 
